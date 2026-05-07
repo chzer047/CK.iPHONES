@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CK iPHONES | Catálogo Premium Apple</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    body {
+      background: #050505;
+      color: #f5f5f7;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(5, 5, 5, 0.78);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .navbar {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      letter-spacing: -0.5px;
+    }
+
+    .logo strong {
+      font-size: 1.45rem;
+      font-weight: 800;
+    }
+
+    .logo span {
+      font-size: 0.78rem;
+      color: #aaa;
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      align-items: center;
+      color: #d1d1d6;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .whatsapp-top {
+      background: #fff;
+      color: #000;
+      padding: 11px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: 0.25s;
+    }
+
+    .whatsapp-top:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(255,255,255,0.16);
+    }
+
+    .hero {
+      min-height: 78vh;
+      display: grid;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 75% 35%, rgba(83, 118, 255, 0.26), transparent 30%),
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.13), transparent 26%),
+        linear-gradient(180deg, #080808 0%, #050505 100%);
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 44px;
+      align-items: center;
+      padding: 84px 0;
+    }
+
+    .badge {
+      display: inline-flex;
+      width: fit-content;
+      padding: 9px 14px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 999px;
+      color: #d1d1d6;
+      background: rgba(255,255,255,0.05);
+      font-size: 0.88rem;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 6.6rem);
+      line-height: 0.92;
+      letter-spacing: -5px;
+      margin-bottom: 24px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #fff, #a8b8ff, #fff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: #b5b5bd;
+      font-size: 1.18rem;
+      line-height: 1.65;
+      margin-bottom: 34px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 15px 23px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 36px;
+      padding: 28px;
+      min-height: 460px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle, rgba(255,255,255,0.14), transparent 45%);
+      transform: rotate(20deg);
+    }
+
+    .phone-mockup {
+      width: 210px;
+      height: 410px;
+      border-radius: 42px;
+      background: linear-gradient(145deg, #242424, #050505);
+      border: 9px solid #1d1d1f;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 26px 60px rgba(0,0,0,0.65);
+    }
+
+    .phone-mockup::before {
+      content: "";
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 82px;
+      height: 24px;
+      background: #000;
+      border-radius: 999px;
+    }
+
+    .phone-screen {
+      position: absolute;
+      inset: 0;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 70% 28%, rgba(0, 102, 255, 0.7), transparent 30%),
+        radial-gradient(circle at 25% 75%, rgba(255,255,255,0.32), transparent 24%),
+        linear-gradient(160deg, #151515, #000);
+    }
+
+    .hero-card-info {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .hero-card-info h3 {
+      font-size: 1.55rem;
+      margin-bottom: 8px;
+    }
+
+    .hero-card-info p {
+      font-size: 0.98rem;
+      margin: 0;
+    }
+
+    section {
+      padding: 78px 0;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2.1rem, 4vw, 3.7rem);
+      letter-spacing: -2px;
+    }
+
+    .section-title p {
+      color: #aaa;
+      max-width: 450px;
+      line-height: 1.5;
+    }
+
+    .filters {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .filter-btn {
+      background: rgba(255,255,255,0.06);
+      color: #f5f5f7;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 11px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .product-card {
+      background: #111113;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 30px;
+      padding: 20px;
+      transition: 0.25s;
+      overflow: hidden;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,255,255,0.24);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.45);
+    }
+
+    .product-image {
+      height: 260px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(255,255,255,0.18), transparent 34%),
+        linear-gradient(145deg, #1d1d1f, #050505);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      color: #777;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .mini-phone {
+      width: 112px;
+      height: 215px;
+      border-radius: 28px;
+      border: 7px solid #252525;
+      background: linear-gradient(145deg, #404040, #111);
+      box-shadow: 0 18px 35px rgba(0,0,0,0.48);
+    }
+
+    .product-category {
+      color: #8ea2ff;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+
+    .product-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .specs {
+      display: grid;
+      gap: 8px;
+      color: #c7c7cc;
+      font-size: 0.94rem;
+      margin-bottom: 18px;
+    }
+
+    .price {
+      font-size: 1.65rem;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .installment {
+      color: #aaa;
+      margin-bottom: 18px;
+      font-size: 0.92rem;
+    }
+
+    .product-card .btn {
+      width: 100%;
+      justify-content: center;
+      padding: 13px 18px;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .benefit-card {
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 26px;
+      padding: 24px;
+    }
+
+    .benefit-card span {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .benefit-card h3 {
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .benefit-card p {
+      color: #aaa;
+      line-height: 1.5;
+      font-size: 0.94rem;
+    }
+
+    .cta {
+      background: linear-gradient(145deg, #f5f5f7, #bfc7ff);
+      color: #000;
+      border-radius: 38px;
+      padding: 56px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 26px;
+    }
+
+    .cta h2 {
+      font-size: clamp(2rem, 4vw, 4rem);
+      letter-spacing: -2px;
+      margin-bottom: 12px;
+    }
+
+    .cta p {
+      color: #222;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      max-width: 700px;
+    }
+
+    .cta .btn {
+      background: #000;
+      color: #fff;
+      border: none;
+      white-space: nowrap;
+    }
+
+    footer {
+      padding: 36px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: #aaa;
+      font-size: 0.95rem;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 920px) {
+      .hero-content,
+      .cta {
+        grid-template-columns: 1fr;
+      }
+
+      .products-grid,
+      .benefits {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      h1 {
+        letter-spacing: -3px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .products-grid,
+      .benefits {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-content {
+        padding: 54px 0;
+      }
+
+      .hero-card {
+        min-height: 390px;
+      }
+
+      .phone-mockup {
+        width: 175px;
+        height: 340px;
+      }
+
+      .section-title {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .cta {
+        padding: 34px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container navbar">
+      <a href="#inicio" class="logo">
+        <strong>CK iPHONES</strong>
+        <span>Apple original • Seminovos e lacrados</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#catalogo">Catálogo</a>
+        <a href="#vantagens">Vantagens</a>
+        <a href="#contato">Contato</a>
+        <a class="whatsapp-top" href="https://wa.me/5547999999999?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20CK%20iPHONES%20e%20quero%20ver%20os%20aparelhos%20dispon%C3%ADveis." target="_blank">WhatsApp</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="container hero-content">
+        <div>
+          <div class="badge">Venda, troca e assistência técnica Apple</div>
+          <h1>Seu próximo <span class="gradient-text">iPhone</span> começa aqui.</h1>
+          <p>
+            Aparelhos selecionados, seminovos originais, opções lacradas, garantia de 3 meses e parcelamento facilitado. Atendimento direto pelo WhatsApp com a CK iPHONES.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#catalogo">Ver catálogo</a>
+            <a class="btn btn-secondary" href="https://wa.me/5547999999999?text=Ol%C3%A1%2C%20quero%20atendimento%20da%20CK%20iPHONES." target="_blank">Chamar no WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="phone-mockup">
+            <div class="phone-screen"></div>
+          </div>
+          <div class="hero-card-info">
+            <h3>CK Selection</h3>
+            <p>Curadoria de aparelhos com procedência, estética e performance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="catalogo">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>Catálogo disponível</h2>
+          </div>
+          <p>Escolha uma categoria, veja os detalhes do aparelho e fale direto no WhatsApp para negociar.</p>
+        </div>
+
+        <div class="filters">
+          <button class="filter-btn active" data-filter="todos">Todos</button>
+          <button class="filter-btn" data-filter="iphone">iPhones</button>
+          <button class="filter-btn" data-filter="watch">Apple Watch</button>
+          <button class="filter-btn" data-filter="airpods">AirPods</button>
+          <button class="filter-btn" data-filter="assistencia">Assistência</button>
+        </div>
+
+        <div class="products-grid" id="productsGrid"></div>
+      </div>
+    </section>
+
+    <section id="vantagens">
+      <div class="container">
+        <div class="section-title">
+          <h2>Por que comprar com a CK?</h2>
+          <p>Mais segurança, atendimento próximo e aparelhos selecionados com cuidado.</p>
+        </div>
+
+        <div class="benefits">
+          <div class="benefit-card">
+            <span>✅</span>
+            <h3>Garantia de 3 meses</h3>
+            <p>Mais tranquilidade para comprar seu aparelho com segurança.</p>
+          </div>
+          <div class="benefit-card">
+            <span>📱</span>
+            <h3>Aparelhos originais</h3>
+            <p>Produtos selecionados com foco em procedência e qualidade.</p>
+          </div>
+          <div class="benefit-card">
+            <span>💳</span>
+            <h3>Parcelamento</h3>
+            <p>Opções facilitadas para você comprar sem complicação.</p>
+          </div>
+          <div class="benefit-card">
+            <span>🔧</span>
+            <h3>Assistência técnica</h3>
+            <p>Troca de tela, bateria, tampa traseira e suporte especializado.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <h2>Quer saber qual iPhone combina com você?</h2>
+            <p>Chame a CK iPHONES no WhatsApp e receba uma indicação de aparelho conforme seu orçamento, uso e preferência.</p>
+          </div>
+          <a class="btn" href="https://wa.me/5547999999999?text=Ol%C3%A1%2C%20quero%20uma%20indica%C3%A7%C3%A3o%20de%20iPhone%20conforme%20meu%20or%C3%A7amento." target="_blank">Falar agora</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <p>© 2026 CK iPHONES. Todos os direitos reservados.</p>
+      <p>Instagram: @ck.iphones • WhatsApp: (47) 99999-9999</p>
+    </div>
+  </footer>
+
+  <script>
+    const whatsappNumber = "5547999999999";
+
+    const products = [
+      {
+        category: "iphone",
+        categoryLabel: "iPhone Seminovo",
+        name: "iPhone 15 Pro Max 256GB",
+        specs: ["Bateria: 83%", "Cor: Titânio Natural", "Estado: Seminovo original", "Garantia: 3 meses"],
+        price: "R$ 4.679,99",
+        installment: "Parcelamento em até 18x",
+      },
+      {
+        category: "iphone",
+        categoryLabel: "iPhone Seminovo",
+        name: "iPhone 15 Pro 512GB",
+        specs: ["Cor: Preto", "Estado: Seminovo original", "Garantia: 3 meses", "Pronta entrega"],
+        price: "R$ 4.399,99",
+        installment: "Parcelamento em até 12x",
+      },
+      {
+        category: "iphone",
+        categoryLabel: "iPhone Seminovo",
+        name: "iPhone 14 Pro 128GB",
+        specs: ["Bateria: 86%", "Cor: Black Titanium", "Marcas de uso laterais", "Tela original trocada"],
+        price: "R$ 2.999,99",
+        installment: "Consulte condições",
+      },
+      {
+        category: "watch",
+        categoryLabel: "Apple Watch",
+        name: "Apple Watch Series 10 GPS",
+        specs: ["Modelo GPS", "Original Apple", "Design premium", "Ideal para rotina e treino"],
+        price: "R$ 2.589,99",
+        installment: "Consulte parcelamento",
+      },
+      {
+        category: "airpods",
+        categoryLabel: "AirPods",
+        name: "AirPods Pro",
+        specs: ["Cancelamento de ruído", "Áudio espacial", "Original Apple", "Sob consulta"],
+        price: "Consultar valor",
+        installment: "Chame no WhatsApp",
+      },
+      {
+        category: "assistencia",
+        categoryLabel: "Assistência Técnica",
+        name: "Troca de Tela, Bateria e Tampa",
+        specs: ["Atendimento especializado", "Diagnóstico sob consulta", "Peças conforme disponibilidade", "Suporte para iPhone"],
+        price: "Sob orçamento",
+        installment: "Solicite avaliação",
+      },
+    ];
+
+    const productsGrid = document.getElementById("productsGrid");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+
+    function buildWhatsAppLink(productName) {
+      const text = `Olá, vim pelo site da CK iPHONES e tenho interesse em: ${productName}. Pode me passar mais detalhes?`;
+      return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
+    }
+
+    function renderProducts(filter = "todos") {
+      const filteredProducts = filter === "todos"
+        ? products
+        : products.filter(product => product.category === filter);
+
+      productsGrid.innerHTML = filteredProducts.map(product => `
+        <article class="product-card">
+          <div class="product-image">
+            <div class="mini-phone"></div>
+          </div>
+          <div class="product-category">${product.categoryLabel}</div>
+          <h3>${product.name}</h3>
+          <div class="specs">
+            ${product.specs.map(spec => `<span>${spec}</span>`).join("")}
+          </div>
+          <div class="price">${product.price}</div>
+          <div class="installment">${product.installment}</div>
+          <a class="btn btn-primary" href="${buildWhatsAppLink(product.name)}" target="_blank">Tenho interesse</a>
+        </article>
+      `).join("");
+    }
+
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        renderProducts(button.dataset.filter);
+      });
+    });
+
+    renderProducts();
+  </script>
+</body>
+</html>
