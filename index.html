@@ -3,150 +3,880 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CK iPHONES | Catálogo Premium Apple</title>
+  <title>CK iPHONES | Catálogo Premium</title>
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
     html { scroll-behavior: smooth; }
-    body { background: #050505; color: #f5f5f7; min-height: 100vh; }
-    a { text-decoration: none; color: inherit; }
+
+    body {
+      min-height: 100vh;
+      background: #050505;
+      color: #f5f5f7;
+    }
+
+    a { color: inherit; text-decoration: none; }
     button, input, select, textarea { font-family: inherit; }
-    .container { width: min(1180px, 92%); margin: 0 auto; }
 
-    header { position: sticky; top: 0; z-index: 20; background: rgba(5,5,5,.78); backdrop-filter: blur(18px); border-bottom: 1px solid rgba(255,255,255,.08); }
-    .navbar { height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .brand { display: flex; align-items: center; gap: 12px; }
-    .brand-logo { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(145deg,#fff,#bfc7ff); display: grid; place-items: center; color: #000; font-weight: 900; overflow: hidden; }
-    .brand-logo img { width: 100%; height: 100%; object-fit: contain; padding: 3px; background: #fff; }
-    .logo { display: flex; flex-direction: column; letter-spacing: -.5px; }
-    .logo strong { font-size: 1.45rem; font-weight: 800; }
-    .logo span { font-size: .78rem; color: #aaa; margin-top: 2px; }
-    .nav-links { display: flex; gap: 20px; align-items: center; color: #d1d1d6; font-size: .95rem; }
-    .nav-links a, .nav-links button { background: transparent; border: 0; color: inherit; cursor: pointer; font-size: .95rem; }
-    .nav-links a:hover, .nav-links button:hover { color: #fff; }
-    .whatsapp-top { background: #fff !important; color: #000 !important; padding: 11px 18px; border-radius: 999px; font-weight: 700; transition: .25s; }
-    .whatsapp-top:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,255,255,.16); }
+    .container {
+      width: min(1180px, 92%);
+      margin: 0 auto;
+    }
 
-    .hero { min-height: 78vh; display: grid; align-items: center; position: relative; overflow: hidden; background: radial-gradient(circle at 75% 35%, rgba(83,118,255,.26), transparent 30%), radial-gradient(circle at 20% 20%, rgba(255,255,255,.13), transparent 26%), linear-gradient(180deg,#080808 0%,#050505 100%); }
-    .hero-content { display: grid; grid-template-columns: 1.15fr .85fr; gap: 44px; align-items: center; padding: 84px 0; }
-    .badge { display: inline-flex; width: fit-content; padding: 9px 14px; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; color: #d1d1d6; background: rgba(255,255,255,.05); font-size: .88rem; margin-bottom: 22px; }
-    h1 { font-size: clamp(3rem,7vw,6.6rem); line-height: .92; letter-spacing: -5px; margin-bottom: 24px; }
-    .gradient-text { background: linear-gradient(90deg,#fff,#a8b8ff,#fff); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .hero p { max-width: 650px; color: #b5b5bd; font-size: 1.18rem; line-height: 1.65; margin-bottom: 34px; }
-    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-    .btn { padding: 15px 23px; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); font-weight: 800; cursor: pointer; transition: .25s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-align: center; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(5, 5, 5, 0.78);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .navbar {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.14);
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 3px;
+      background: #fff;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      letter-spacing: -0.4px;
+    }
+
+    .brand-text strong {
+      font-size: 1.35rem;
+      font-weight: 900;
+    }
+
+    .brand-text span {
+      color: #aaa;
+      font-size: .78rem;
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: #d1d1d6;
+      font-size: .95rem;
+    }
+
+    .nav-links a,
+    .nav-links button {
+      background: transparent;
+      border: 0;
+      color: inherit;
+      cursor: pointer;
+      font-size: .95rem;
+    }
+
+    .nav-links a:hover,
+    .nav-links button:hover { color: #fff; }
+
+    .whatsapp-top {
+      background: #fff !important;
+      color: #000 !important;
+      padding: 11px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      transition: .25s;
+    }
+
+    .whatsapp-top:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 34px rgba(255,255,255,.16);
+    }
+
+    .hero {
+      min-height: 78vh;
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 80% 32%, rgba(83, 118, 255, .28), transparent 32%),
+        radial-gradient(circle at 15% 15%, rgba(255, 255, 255, .13), transparent 28%),
+        linear-gradient(180deg, #090909 0%, #050505 100%);
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 44px;
+      align-items: center;
+      padding: 82px 0;
+    }
+
+    .badge {
+      display: inline-flex;
+      width: fit-content;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      color: #d1d1d6;
+      background: rgba(255,255,255,.05);
+      font-size: .88rem;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      line-height: .92;
+      letter-spacing: -5px;
+      margin-bottom: 24px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #fff, #a8b8ff, #fff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 680px;
+      color: #b5b5bd;
+      font-size: 1.18rem;
+      line-height: 1.65;
+      margin-bottom: 34px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      font-weight: 850;
+      cursor: pointer;
+      transition: .25s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: center;
+    }
+
+    .btn:hover { transform: translateY(-3px); }
     .btn-primary { background: #fff; color: #000; }
     .btn-secondary { background: rgba(255,255,255,.06); color: #fff; }
     .btn-danger { background: rgba(255,79,79,.16); color: #ffb3b3; border-color: rgba(255,79,79,.25); }
     .btn-success { background: rgba(66,255,160,.14); color: #c8ffdf; border-color: rgba(66,255,160,.22); }
-    .btn:hover { transform: translateY(-3px); }
 
-    .hero-card { background: linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.04)); border: 1px solid rgba(255,255,255,.14); border-radius: 36px; padding: 28px; min-height: 460px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 30px 90px rgba(0,0,0,.5); position: relative; overflow: hidden; }
-    .hero-card::before { content: ""; position: absolute; inset: -40%; background: radial-gradient(circle,rgba(255,255,255,.14),transparent 45%); transform: rotate(20deg); }
-    .phone-mockup { width: 210px; height: 410px; border-radius: 42px; background: linear-gradient(145deg,#242424,#050505); border: 9px solid #1d1d1f; margin: 0 auto; position: relative; z-index: 1; box-shadow: 0 26px 60px rgba(0,0,0,.65); }
-    .phone-mockup::before { content: ""; position: absolute; top: 14px; left: 50%; transform: translateX(-50%); width: 82px; height: 24px; background: #000; border-radius: 999px; z-index: 2; }
-    .phone-screen { position: absolute; inset: 0; border-radius: 32px; background: radial-gradient(circle at 70% 28%,rgba(0,102,255,.7),transparent 30%), radial-gradient(circle at 25% 75%,rgba(255,255,255,.32),transparent 24%), linear-gradient(160deg,#151515,#000); }
-    .hero-card-info { position: relative; z-index: 1; text-align: center; margin-top: 20px; }
-    .hero-card-info h3 { font-size: 1.55rem; margin-bottom: 8px; }
-    .hero-card-info p { font-size: .98rem; margin: 0; }
+    .hero-card {
+      min-height: 460px;
+      background: linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 36px;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 90px rgba(0,0,0,.5);
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle, rgba(255,255,255,.14), transparent 45%);
+      transform: rotate(20deg);
+    }
+
+    .hero-logo-box {
+      width: 260px;
+      height: 260px;
+      margin: 36px auto 0;
+      position: relative;
+      z-index: 1;
+      border-radius: 34px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,.45);
+    }
+
+    .hero-logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 10px;
+    }
+
+    .hero-card-info {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .hero-card-info h3 {
+      font-size: 1.55rem;
+      margin-bottom: 8px;
+    }
+
+    .hero-card-info p {
+      font-size: .98rem;
+      margin: 0;
+      color: #b5b5bd;
+    }
 
     section { padding: 78px 0; }
-    .section-title { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 30px; }
-    .section-title h2 { font-size: clamp(2.1rem,4vw,3.7rem); letter-spacing: -2px; }
-    .section-title p { color: #aaa; max-width: 450px; line-height: 1.5; }
-    .filters { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
-    .filter-btn { background: rgba(255,255,255,.06); color: #f5f5f7; border: 1px solid rgba(255,255,255,.1); padding: 11px 16px; border-radius: 999px; cursor: pointer; font-weight: 700; transition: .2s; }
-    .filter-btn.active, .filter-btn:hover { background: #fff; color: #000; }
-    .products-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
-    .product-card { background: #111113; border: 1px solid rgba(255,255,255,.09); border-radius: 30px; padding: 20px; transition: .25s; overflow: hidden; position: relative; }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2.1rem, 4vw, 3.7rem);
+      letter-spacing: -2px;
+    }
+
+    .section-title p {
+      color: #aaa;
+      max-width: 460px;
+      line-height: 1.5;
+    }
+
+    .filters {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .filter-btn {
+      background: rgba(255,255,255,.06);
+      color: #f5f5f7;
+      border: 1px solid rgba(255,255,255,.1);
+      padding: 11px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 800;
+      transition: .2s;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .product-card {
+      background: #111113;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 30px;
+      padding: 20px;
+      transition: .25s;
+      overflow: hidden;
+      position: relative;
+    }
+
     .product-card.sold { opacity: .55; }
-    .sold-ribbon { position: absolute; top: 18px; right: 18px; z-index: 2; background: rgba(255,255,255,.92); color: #000; font-weight: 900; border-radius: 999px; padding: 8px 12px; font-size: .78rem; }
-    .product-card:hover { transform: translateY(-6px); border-color: rgba(255,255,255,.24); box-shadow: 0 24px 70px rgba(0,0,0,.45); }
-    .product-image { height: 260px; border-radius: 24px; background: radial-gradient(circle at 50% 35%,rgba(255,255,255,.18),transparent 34%), linear-gradient(145deg,#1d1d1f,#050505); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; overflow: hidden; }
-    .product-image img { width: 100%; height: 100%; object-fit: cover; }
-    .mini-phone { width: 112px; height: 215px; border-radius: 28px; border: 7px solid #252525; background: linear-gradient(145deg,#404040,#111); box-shadow: 0 18px 35px rgba(0,0,0,.48); }
-    .product-category { color: #8ea2ff; font-size: .82rem; font-weight: 800; text-transform: uppercase; margin-bottom: 9px; }
-    .product-card h3 { font-size: 1.35rem; margin-bottom: 12px; letter-spacing: -.5px; }
-    .specs { display: grid; gap: 8px; color: #c7c7cc; font-size: .94rem; margin-bottom: 18px; }
-    .price { font-size: 1.65rem; font-weight: 900; margin-bottom: 6px; }
-    .installment { color: #aaa; margin-bottom: 18px; font-size: .92rem; }
-    .product-card .btn { width: 100%; padding: 13px 18px; }
 
-    .benefits { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
-    .benefit-card { background: rgba(255,255,255,.055); border: 1px solid rgba(255,255,255,.09); border-radius: 26px; padding: 24px; }
-    .benefit-card span { font-size: 2rem; display: block; margin-bottom: 12px; }
-    .benefit-card h3 { margin-bottom: 8px; font-size: 1.1rem; }
-    .benefit-card p { color: #aaa; line-height: 1.5; font-size: .94rem; }
-    .cta { background: linear-gradient(145deg,#f5f5f7,#bfc7ff); color: #000; border-radius: 38px; padding: 56px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 26px; }
-    .cta h2 { font-size: clamp(2rem,4vw,4rem); letter-spacing: -2px; margin-bottom: 12px; }
-    .cta p { color: #222; font-size: 1.1rem; line-height: 1.5; max-width: 700px; }
-    .cta .btn { background: #000; color: #fff; border: none; white-space: nowrap; }
-    footer { padding: 36px 0; border-top: 1px solid rgba(255,255,255,.08); color: #aaa; font-size: .95rem; }
-    .footer-content { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+    .sold-ribbon {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 2;
+      background: rgba(255,255,255,.92);
+      color: #000;
+      font-weight: 900;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: .78rem;
+    }
 
-    .floating-support { position: fixed; right: 18px; bottom: 18px; z-index: 50; display: grid; gap: 10px; }
-    .float-btn { width: 58px; height: 58px; border-radius: 50%; border: 1px solid rgba(255,255,255,.12); display: grid; place-items: center; background: #fff; color: #000; font-size: 1.3rem; box-shadow: 0 16px 44px rgba(0,0,0,.45); cursor: pointer; transition: .25s; }
-    .float-btn:hover { transform: translateY(-3px) scale(1.03); }
-    .support-card { position: fixed; right: 18px; bottom: 88px; width: min(340px, calc(100vw - 36px)); background: rgba(18,18,20,.96); border: 1px solid rgba(255,255,255,.12); border-radius: 26px; padding: 18px; z-index: 60; box-shadow: 0 24px 70px rgba(0,0,0,.55); display: none; }
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,255,255,.28);
+      box-shadow: 0 24px 70px rgba(0,0,0,.45);
+    }
+
+    .product-image {
+      height: 260px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(255,255,255,.18), transparent 34%),
+        linear-gradient(145deg,#1d1d1f,#050505);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .mini-phone {
+      width: 112px;
+      height: 215px;
+      border-radius: 28px;
+      border: 7px solid #252525;
+      background: linear-gradient(145deg,#404040,#111);
+      box-shadow: 0 18px 35px rgba(0,0,0,.48);
+    }
+
+    .product-category {
+      color: #8ea2ff;
+      font-size: .82rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+
+    .product-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 12px;
+      letter-spacing: -.5px;
+    }
+
+    .specs {
+      display: grid;
+      gap: 8px;
+      color: #c7c7cc;
+      font-size: .94rem;
+      margin-bottom: 18px;
+      line-height: 1.4;
+    }
+
+    .price {
+      font-size: 1.65rem;
+      font-weight: 950;
+      margin-bottom: 6px;
+    }
+
+    .installment {
+      color: #aaa;
+      margin-bottom: 18px;
+      font-size: .92rem;
+    }
+
+    .product-card .btn {
+      width: 100%;
+      padding: 13px 18px;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 18px;
+    }
+
+    .benefit-card {
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 26px;
+      padding: 24px;
+    }
+
+    .benefit-card span {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .benefit-card h3 {
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .benefit-card p {
+      color: #aaa;
+      line-height: 1.5;
+      font-size: .94rem;
+    }
+
+    .cta {
+      background: linear-gradient(145deg,#f5f5f7,#bfc7ff);
+      color: #000;
+      border-radius: 38px;
+      padding: 56px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 26px;
+    }
+
+    .cta h2 {
+      font-size: clamp(2rem,4vw,4rem);
+      letter-spacing: -2px;
+      margin-bottom: 12px;
+    }
+
+    .cta p {
+      color: #222;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      max-width: 720px;
+    }
+
+    .cta .btn {
+      background: #000;
+      color: #fff;
+      border: none;
+      white-space: nowrap;
+    }
+
+    footer {
+      padding: 36px 0;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: #aaa;
+      font-size: .95rem;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .hidden-admin-trigger {
+      color: #777;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .floating-support {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 55;
+      display: grid;
+      gap: 10px;
+    }
+
+    .float-btn {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.12);
+      display: grid;
+      place-items: center;
+      background: #fff;
+      color: #000;
+      font-size: 1.3rem;
+      box-shadow: 0 16px 44px rgba(0,0,0,.45);
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .float-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+    }
+
+    .support-card {
+      position: fixed;
+      right: 18px;
+      bottom: 88px;
+      width: min(340px, calc(100vw - 36px));
+      background: rgba(18,18,20,.96);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 26px;
+      padding: 18px;
+      z-index: 60;
+      box-shadow: 0 24px 70px rgba(0,0,0,.55);
+      display: none;
+    }
+
     .support-card.open { display: block; }
-    .support-logo { width: 58px; height: 58px; border-radius: 18px; background: linear-gradient(145deg,#fff,#bfc7ff); color: #000; display: grid; place-items: center; font-weight: 900; margin-bottom: 12px; overflow: hidden; }
-    .support-logo img { width: 100%; height: 100%; object-fit: contain; padding: 3px; background: #fff; }
+
+    .support-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .support-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 3px;
+      background: #fff;
+    }
+
     .support-card h3 { margin-bottom: 8px; }
-    .support-card p { color: #aaa; line-height: 1.45; margin-bottom: 14px; }
-    .support-card .btn { width: 100%; margin-top: 8px; }
 
-    .popup-overlay, .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.74); backdrop-filter: blur(14px); z-index: 100; display: none; align-items: center; justify-content: center; padding: 24px; }
-    .popup-overlay.open, .modal-overlay.open { display: flex; }
-    .instagram-popup { width: min(420px,100%); background: linear-gradient(145deg,#161618,#080808); border: 1px solid rgba(255,255,255,.14); border-radius: 30px; padding: 28px; text-align: center; box-shadow: 0 30px 90px rgba(0,0,0,.65); }
-    .instagram-popup .ig-icon { width: 82px; height: 82px; border-radius: 26px; margin: 0 auto 18px; display: grid; place-items: center; font-size: 2.2rem; background: linear-gradient(145deg,#fff,#bfc7ff); color: #000; }
-    .instagram-popup h2 { font-size: 1.8rem; margin-bottom: 10px; }
-    .instagram-popup p { color: #aaa; line-height: 1.5; margin-bottom: 18px; }
-    .popup-actions { display: grid; gap: 10px; }
+    .support-card p {
+      color: #aaa;
+      line-height: 1.45;
+      margin-bottom: 14px;
+    }
 
-    .admin-modal { width: min(1100px,100%); max-height: 92vh; overflow: auto; background: #101012; border: 1px solid rgba(255,255,255,.13); border-radius: 30px; box-shadow: 0 30px 100px rgba(0,0,0,.75); }
-    .admin-header { position: sticky; top: 0; z-index: 2; background: rgba(16,16,18,.92); backdrop-filter: blur(18px); border-bottom: 1px solid rgba(255,255,255,.08); padding: 22px; display: flex; justify-content: space-between; gap: 18px; align-items: center; }
-    .admin-header h2 { font-size: 1.55rem; letter-spacing: -.8px; }
+    .support-card .btn {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .popup-overlay,
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.74);
+      backdrop-filter: blur(14px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .popup-overlay.open,
+    .modal-overlay.open { display: flex; }
+
+    .instagram-popup {
+      width: min(420px,100%);
+      background: linear-gradient(145deg,#161618,#080808);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 30px;
+      padding: 28px;
+      text-align: center;
+      box-shadow: 0 30px 90px rgba(0,0,0,.65);
+    }
+
+    .ig-icon {
+      width: 82px;
+      height: 82px;
+      border-radius: 26px;
+      margin: 0 auto 18px;
+      display: grid;
+      place-items: center;
+      font-size: 2.2rem;
+      background: linear-gradient(145deg,#fff,#bfc7ff);
+      color: #000;
+    }
+
+    .instagram-popup h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .instagram-popup p {
+      color: #aaa;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .popup-actions {
+      display: grid;
+      gap: 10px;
+    }
+
+    .admin-modal {
+      width: min(1100px,100%);
+      max-height: 92vh;
+      overflow: auto;
+      background: #101012;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 30px;
+      box-shadow: 0 30px 100px rgba(0,0,0,.75);
+    }
+
+    .admin-header {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: rgba(16,16,18,.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      padding: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .admin-header h2 {
+      font-size: 1.55rem;
+      letter-spacing: -.8px;
+    }
+
     .admin-body { padding: 22px; }
-    .login-box { display: grid; gap: 14px; max-width: 420px; }
-    .admin-grid { display: none; grid-template-columns: .9fr 1.1fr; gap: 22px; align-items: start; }
-    .admin-grid.active { display: grid; }
-    .admin-card { background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.09); border-radius: 24px; padding: 20px; }
-    .admin-card h3 { margin-bottom: 16px; font-size: 1.2rem; }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .form-group { display: grid; gap: 7px; }
-    .form-group.full { grid-column: 1 / -1; }
-    label { color: #c9c9cf; font-size: .9rem; font-weight: 700; }
-    input, select, textarea { width: 100%; background: #050505; color: #fff; border: 1px solid rgba(255,255,255,.12); border-radius: 14px; padding: 13px 14px; outline: none; }
-    textarea { min-height: 78px; resize: vertical; }
-    input:focus, select:focus, textarea:focus { border-color: rgba(255,255,255,.34); }
-    .preview-img { width: 100%; height: 180px; border-radius: 18px; background: #060606; border: 1px dashed rgba(255,255,255,.18); display: flex; align-items: center; justify-content: center; color: #888; overflow: hidden; margin-top: 8px; }
-    .preview-img img { width: 100%; height: 100%; object-fit: cover; }
-    .admin-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
-    .admin-list { display: grid; gap: 12px; }
-    .admin-item { background: rgba(0,0,0,.25); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 14px; display: grid; grid-template-columns: 72px 1fr; gap: 12px; }
-    .admin-thumb { width: 72px; height: 72px; border-radius: 14px; background: linear-gradient(145deg,#272727,#050505); overflow: hidden; }
-    .admin-thumb img { width: 100%; height: 100%; object-fit: cover; }
-    .admin-item h4 { margin-bottom: 6px; font-size: 1rem; }
-    .admin-meta { color: #aaa; font-size: .86rem; line-height: 1.45; margin-bottom: 10px; }
-    .small-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-    .small-actions .btn { padding: 8px 11px; font-size: .78rem; }
-    .stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 14px; }
-    .stat-box { background: rgba(255,255,255,.055); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 14px; }
-    .stat-box strong { display: block; font-size: 1.6rem; margin-bottom: 4px; }
-    .stat-box span { color: #aaa; font-size: .82rem; }
-    .notice { color: #aaa; font-size: .9rem; line-height: 1.5; margin-top: 12px; padding: 13px; border-radius: 16px; background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.08); }
-    .hidden-admin-trigger { color: #777; cursor: pointer; user-select: none; }
 
-    @media (max-width: 920px) { .hero-content, .cta, .admin-grid { grid-template-columns: 1fr; } .products-grid, .benefits { grid-template-columns: repeat(2,1fr); } .nav-links a:not(.whatsapp-top), .nav-links button { display: none; } h1 { letter-spacing: -3px; } }
-    @media (max-width: 620px) { .products-grid, .benefits, .form-grid, .stats-grid { grid-template-columns: 1fr; } .hero { min-height: auto; } .hero-content { padding: 54px 0; } .hero-card { min-height: 390px; } .phone-mockup { width: 175px; height: 340px; } .section-title { align-items: start; flex-direction: column; } .cta { padding: 34px 24px; } .admin-header { align-items: flex-start; flex-direction: column; } }
+    .login-box {
+      display: grid;
+      gap: 14px;
+      max-width: 420px;
+    }
+
+    .admin-grid {
+      display: none;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .admin-grid.active { display: grid; }
+
+    .admin-card {
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 24px;
+      padding: 20px;
+    }
+
+    .admin-card h3 {
+      margin-bottom: 16px;
+      font-size: 1.2rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: grid;
+      gap: 7px;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    label {
+      color: #c9c9cf;
+      font-size: .9rem;
+      font-weight: 800;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      background: #050505;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      padding: 13px 14px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 78px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(255,255,255,.34);
+    }
+
+    .preview-img {
+      width: 100%;
+      height: 180px;
+      border-radius: 18px;
+      background: #060606;
+      border: 1px dashed rgba(255,255,255,.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #888;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .preview-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .admin-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .admin-item {
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 12px;
+    }
+
+    .admin-thumb {
+      width: 72px;
+      height: 72px;
+      border-radius: 14px;
+      background: linear-gradient(145deg,#272727,#050505);
+      overflow: hidden;
+    }
+
+    .admin-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .admin-item h4 {
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .admin-meta {
+      color: #aaa;
+      font-size: .86rem;
+      line-height: 1.45;
+      margin-bottom: 10px;
+    }
+
+    .small-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .small-actions .btn {
+      padding: 8px 11px;
+      font-size: .78rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .stat-box {
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .stat-box strong {
+      display: block;
+      font-size: 1.6rem;
+      margin-bottom: 4px;
+    }
+
+    .stat-box span {
+      color: #aaa;
+      font-size: .82rem;
+    }
+
+    .notice {
+      color: #aaa;
+      font-size: .9rem;
+      line-height: 1.5;
+      margin-top: 12px;
+      padding: 13px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    @media (max-width: 920px) {
+      .hero-content,
+      .cta,
+      .admin-grid { grid-template-columns: 1fr; }
+      .products-grid,
+      .benefits { grid-template-columns: repeat(2,1fr); }
+      .nav-links a:not(.whatsapp-top),
+      .nav-links button { display: none; }
+      h1 { letter-spacing: -3px; }
+    }
+
+    @media (max-width: 620px) {
+      .products-grid,
+      .benefits,
+      .form-grid,
+      .stats-grid { grid-template-columns: 1fr; }
+      .hero { min-height: auto; }
+      .hero-content { padding: 54px 0; }
+      .hero-card { min-height: 390px; }
+      .hero-logo-box { width: 220px; height: 220px; }
+      .section-title { align-items: start; flex-direction: column; }
+      .cta { padding: 34px 24px; }
+      .admin-header { align-items: flex-start; flex-direction: column; }
+      .brand-text span { display: none; }
+    }
   </style>
 </head>
+
 <body>
   <header>
     <div class="container navbar">
       <a href="#inicio" class="brand">
-        <div class="brand-logo" id="mainLogoBox"><img src="logo-principal.png" alt="Logo CK iPHONES"></div>
-        <div class="logo"><strong>CK iPHONES</strong><span>Apple original • Seminovos e lacrados</span></div>
+        <div class="brand-logo">
+          <img src="logo-principal.png" alt="Logo CK iPHONES">
+        </div>
+        <div class="brand-text">
+          <strong>CK iPHONES</strong>
+          <span>Apple original • Semi-novos e lacrados</span>
+        </div>
       </a>
+
       <nav class="nav-links">
         <a href="#catalogo">Catálogo</a>
         <a href="#vantagens">Vantagens</a>
@@ -163,22 +893,34 @@
         <div>
           <div class="badge">Venda, troca e assistência técnica Apple</div>
           <h1>Seu próximo <span class="gradient-text">iPhone</span> começa aqui.</h1>
-          <p>Aparelhos selecionados, semi-novos originais, opções lacradas, garantia, aceitamos trocas e parcelamos em até 18x. Atendimento direto pelo WhatsApp com a CK iPHONES.</p>
+          <p>
+            Aparelhos selecionados, semi-novos originais, opções lacradas, garantia, troca sob análise e parcelamento em até 18x. Atendimento direto pelo WhatsApp com a CK iPHONES.
+          </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#catalogo">Ver catálogo</a>
             <a class="btn btn-secondary" href="https://wa.me/5547991151498?text=Ol%C3%A1%2C%20quero%20atendimento%20da%20CK%20iPHONES." target="_blank">Chamar no WhatsApp</a>
           </div>
         </div>
+
         <div class="hero-card">
-          <div class="phone-mockup"><div class="phone-screen"></div></div>
-          <div class="hero-card-info"><h3>CK Selection</h3><p>Curadoria de aparelhos com procedência, estética e performance.</p></div>
+          <div class="hero-logo-box">
+            <img src="logo-principal.png" alt="CK iPHONES">
+          </div>
+          <div class="hero-card-info">
+            <h3>CK Selection</h3>
+            <p>Curadoria de aparelhos com procedência, estética e performance.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="catalogo">
       <div class="container">
-        <div class="section-title"><div><h2>Catálogo disponível</h2></div><p>Escolha uma categoria, veja os detalhes do aparelho e fale direto no WhatsApp para negociar.</p></div>
+        <div class="section-title">
+          <div><h2>Catálogo disponível</h2></div>
+          <p>Escolha uma categoria, veja os detalhes do aparelho e fale direto no WhatsApp para negociar.</p>
+        </div>
+
         <div class="filters">
           <button class="filter-btn active" data-filter="todos">Todos</button>
           <button class="filter-btn" data-filter="iphone">iPhones</button>
@@ -186,18 +928,39 @@
           <button class="filter-btn" data-filter="airpods">AirPods</button>
           <button class="filter-btn" data-filter="assistencia">Assistência</button>
         </div>
+
         <div class="products-grid" id="productsGrid"></div>
       </div>
     </section>
 
     <section id="vantagens">
       <div class="container">
-        <div class="section-title"><h2>Por que comprar com a CK?</h2><p>Mais segurança, atendimento próximo e aparelhos selecionados com cuidado.</p></div>
+        <div class="section-title">
+          <h2>Por que comprar com a CK?</h2>
+          <p>Mais segurança, atendimento próximo e aparelhos selecionados com cuidado.</p>
+        </div>
+
         <div class="benefits">
-          <div class="benefit-card"><span>✅</span><h3>Garantia</h3><p>Mais tranquilidade para comprar seu aparelho com segurança.</p></div>
-          <div class="benefit-card"><span>📱</span><h3>Semi-novos e lacrados</h3><p>Você escolhe entre aparelhos semi-novos selecionados ou opções lacradas.</p></div>
-          <div class="benefit-card"><span>💳</span><h3>Até 18x</h3><p>Parcelamento facilitado em todos os aparelhos do catálogo.</p></div>
-          <div class="benefit-card"><span>🔁</span><h3>Aceitamos troca</h3><p>Você pode usar seu celular como parte do pagamento e pagar a diferença.</p></div>
+          <div class="benefit-card">
+            <span>✅</span>
+            <h3>Garantia</h3>
+            <p>Mais tranquilidade para comprar seu aparelho com segurança.</p>
+          </div>
+          <div class="benefit-card">
+            <span>📱</span>
+            <h3>Semi-novos e lacrados</h3>
+            <p>Você escolhe entre aparelhos semi-novos selecionados ou opções lacradas.</p>
+          </div>
+          <div class="benefit-card">
+            <span>💳</span>
+            <h3>Até 18x</h3>
+            <p>Parcelamento facilitado para você comprar sem complicação.</p>
+          </div>
+          <div class="benefit-card">
+            <span>🔁</span>
+            <h3>Troca sob análise</h3>
+            <p>Seu celular pode entrar como parte do pagamento após avaliação.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -205,7 +968,10 @@
     <section id="contato">
       <div class="container">
         <div class="cta">
-          <div><h2>Quer saber qual iPhone combina com você?</h2><p>Chame a CK iPHONES no WhatsApp e receba uma indicação de aparelho conforme seu orçamento, uso, preferência e possibilidade de troca.</p></div>
+          <div>
+            <h2>Quer saber qual iPhone combina com você?</h2>
+            <p>Chame a CK iPHONES no WhatsApp e receba uma indicação conforme seu orçamento, uso, preferência e possibilidade de troca.</p>
+          </div>
           <a class="btn" href="https://wa.me/5547991151498?text=Ol%C3%A1%2C%20quero%20uma%20indica%C3%A7%C3%A3o%20de%20iPhone%20conforme%20meu%20or%C3%A7amento." target="_blank">Falar agora</a>
         </div>
       </div>
@@ -225,7 +991,9 @@
   </div>
 
   <div class="support-card" id="supportCard">
-    <div class="support-logo" id="supportLogoBox"><img src="logo-suporte.png" alt="Suporte CK iPHONES"></div>
+    <div class="support-logo">
+      <img src="logo-suporte.png" alt="Suporte CK iPHONES">
+    </div>
     <h3>Suporte CK iPHONES</h3>
     <p>Precisa de ajuda, orçamento, assistência técnica ou indicação de aparelho? Fale com nosso suporte.</p>
     <a class="btn btn-primary" href="https://wa.me/5547991151498?text=Ol%C3%A1%2C%20preciso%20de%20suporte%20da%20CK%20iPHONES." target="_blank">Abrir suporte no WhatsApp</a>
@@ -246,40 +1014,108 @@
   <div class="modal-overlay" id="adminOverlay">
     <div class="admin-modal">
       <div class="admin-header">
-        <div><h2>Painel Admin CK iPHONES</h2><p style="color:#aaa; margin-top:6px;">Cadastrar, remover, vender itens e acompanhar cliques.</p></div>
+        <div>
+          <h2>Painel Admin CK iPHONES</h2>
+          <p style="color:#aaa; margin-top:6px;">Cadastrar, remover, vender itens e acompanhar cliques.</p>
+        </div>
         <button class="btn btn-secondary" onclick="closeAdmin()">Fechar</button>
       </div>
+
       <div class="admin-body">
         <div class="login-box" id="loginBox">
-          <div class="form-group"><label>Senha do admin</label><input type="password" id="adminPassword" placeholder="Digite a senha" /></div>
+          <div class="form-group">
+            <label>Senha do admin</label>
+            <input type="password" id="adminPassword" placeholder="Digite a senha" />
+          </div>
           <button class="btn btn-primary" onclick="loginAdmin()">Entrar</button>
-          <p class="notice">Senha inicial: <strong>ckadmin123</strong>. Nesta versão, o painel é local para teste. Depois vamos transformar em painel real com banco de dados.</p>
+          <p class="notice">Senha inicial: <strong>ckadmin123</strong>. Nesta versão, o painel salva neste navegador. Depois conectamos banco de dados real.</p>
         </div>
 
         <div class="admin-grid" id="adminPanel">
           <div class="admin-card">
             <h3>Cadastrar novo item</h3>
+
             <form id="productForm">
               <div class="form-grid">
-                <div class="form-group"><label>Categoria</label><select id="category" required><option value="iphone">iPhone</option><option value="watch">Apple Watch</option><option value="airpods">AirPods</option><option value="assistencia">Assistência</option></select></div>
-                <div class="form-group"><label>Tipo</label><select id="productType" required><option value="Semi-novo">Semi-novo</option><option value="Lacrado">Lacrado</option></select></div>
-                <div class="form-group full"><label>Modelo do item</label><input id="name" placeholder="Ex: iPhone 15 Pro Max 256GB" required /></div>
-                <div class="form-group"><label>Preço</label><input id="price" placeholder="Ex: 4499 ou R$ 4.499,00" required /></div>
-                <div class="form-group"><label>Bateria</label><input id="battery" placeholder="Ex: 83% ou 100%" /></div>
-                <div class="form-group"><label>Cor</label><input id="color" placeholder="Ex: Titânio Natural" /></div>
-                <div class="form-group"><label>Garantia</label><input id="warranty" placeholder="Ex: 3 meses" /></div>
-                <div class="form-group"><label>Aceita troca?</label><select id="acceptTrade"><option value="Aceita troca: celular do cliente como parte do pagamento + diferença">Sim, celular como entrada + diferença</option><option value="Não aceita troca">Não aceita troca</option><option value="Troca sob análise">Sob análise</option></select></div>
-                <div class="form-group full"><label>Partes trocadas / observações</label><textarea id="replacedParts" placeholder="Ex: Tela original trocada, marcas nas laterais por capinha..."></textarea></div>
-                <div class="form-group full"><label>Imagem do produto</label><input type="file" id="imageInput" accept="image/*" /><div class="preview-img" id="imagePreview">Prévia da imagem</div></div>
+                <div class="form-group">
+                  <label>Categoria</label>
+                  <select id="category" required>
+                    <option value="iphone">iPhone</option>
+                    <option value="watch">Apple Watch</option>
+                    <option value="airpods">AirPods</option>
+                    <option value="assistencia">Assistência</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Tipo</label>
+                  <select id="productType" required>
+                    <option value="Semi-novo">Semi-novo</option>
+                    <option value="Lacrado">Lacrado</option>
+                  </select>
+                </div>
+
+                <div class="form-group full">
+                  <label>Modelo do item</label>
+                  <input id="name" placeholder="Ex: iPhone 17 Pro Max 256GB" required />
+                </div>
+
+                <div class="form-group">
+                  <label>Preço</label>
+                  <input id="price" placeholder="Ex: 4499 ou 4.499,00" required />
+                </div>
+
+                <div class="form-group">
+                  <label>Bateria</label>
+                  <input id="battery" placeholder="Ex: 83% ou 100" />
+                </div>
+
+                <div class="form-group">
+                  <label>Cor</label>
+                  <input id="color" placeholder="Ex: Grey" />
+                </div>
+
+                <div class="form-group">
+                  <label>Garantia</label>
+                  <input id="warranty" placeholder="Ex: 1 ano Apple ou 3 meses" />
+                </div>
+
+                <div class="form-group">
+                  <label>Troca</label>
+                  <select id="acceptTrade">
+                    <option value="Sob análise">Sob análise</option>
+                    <option value="Não aceita troca">Não aceita troca</option>
+                  </select>
+                </div>
+
+                <div class="form-group full">
+                  <label>Partes trocadas / observações</label>
+                  <textarea id="replacedParts" placeholder="Ex: Tela original trocada, marcas laterais por capinha, sem detalhes..."></textarea>
+                </div>
+
+                <div class="form-group full">
+                  <label>Imagem do produto</label>
+                  <input type="file" id="imageInput" accept="image/*" />
+                  <div class="preview-img" id="imagePreview">Prévia da imagem</div>
+                </div>
               </div>
-              <div class="admin-actions"><button type="submit" class="btn btn-primary">Salvar item no catálogo</button><button type="button" class="btn btn-secondary" onclick="resetForm()">Limpar campos</button></div>
+
+              <div class="admin-actions">
+                <button type="submit" class="btn btn-primary">Salvar item no catálogo</button>
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">Limpar campos</button>
+              </div>
             </form>
-            <p class="notice">O parcelamento aparece automaticamente como <strong>até 18x</strong>. O valor digitado é tratado como preço em reais.</p>
+
+            <p class="notice">O preço digitado será tratado automaticamente como real. Exemplo: <strong>4499</strong> vira <strong>R$ 4.499,00</strong>. O parcelamento aparece sempre como <strong>até 18x</strong>.</p>
           </div>
 
           <div class="admin-card">
             <h3>Painel de produtos e cliques</h3>
-            <div class="stats-grid"><div class="stat-box"><strong id="totalProducts">0</strong><span>Itens cadastrados</span></div><div class="stat-box"><strong id="totalSold">0</strong><span>Itens vendidos</span></div><div class="stat-box"><strong id="totalClicks">0</strong><span>Cliques totais</span></div></div>
+            <div class="stats-grid">
+              <div class="stat-box"><strong id="totalProducts">0</strong><span>Itens cadastrados</span></div>
+              <div class="stat-box"><strong id="totalSold">0</strong><span>Itens vendidos</span></div>
+              <div class="stat-box"><strong id="totalClicks">0</strong><span>Cliques totais</span></div>
+            </div>
             <div class="admin-list" id="adminList"></div>
           </div>
         </div>
@@ -289,34 +1125,120 @@
 
   <script>
     const whatsappNumber = "5547991151498";
-    const instagramUrl = "https://www.instagram.com/ck.iphones";
     const adminPassword = "ckadmin123";
     let selectedImageBase64 = "";
     let currentFilter = "todos";
 
     const defaultProducts = [
-      { id: crypto.randomUUID(), category: "iphone", categoryLabel: "iPhone", productType: "Semi-novo", name: "iPhone 15 Pro Max 256GB", battery: "83%", color: "Titânio Natural", warranty: "3 meses", acceptTrade: "Aceita troca: celular do cliente como parte do pagamento + diferença", replacedParts: "Sem observações relevantes.", price: "R$ 4.679,99", installment: "Parcelamento em até 18x", image: "", sold: false, clicks: 0, createdAt: new Date().toISOString() },
-      { id: crypto.randomUUID(), category: "iphone", categoryLabel: "iPhone", productType: "Semi-novo", name: "iPhone 15 Pro 512GB", battery: "Consultar", color: "Preto", warranty: "3 meses", acceptTrade: "Troca sob análise", replacedParts: "Pronta entrega.", price: "R$ 4.399,99", installment: "Parcelamento em até 18x", image: "", sold: false, clicks: 0, createdAt: new Date().toISOString() },
-      { id: crypto.randomUUID(), category: "iphone", categoryLabel: "iPhone", productType: "Semi-novo", name: "iPhone 14 Pro 128GB", battery: "86%", color: "Black Titanium", warranty: "3 meses", acceptTrade: "Aceita troca: celular do cliente como parte do pagamento + diferença", replacedParts: "Tela foi trocada por outra original. Marcas de uso apenas nas laterais por conta de capinha.", price: "R$ 2.999,99", installment: "Parcelamento em até 18x", image: "", sold: false, clicks: 0, createdAt: new Date().toISOString() },
-      { id: crypto.randomUUID(), category: "watch", categoryLabel: "Apple Watch", productType: "Semi-novo", name: "Apple Watch Series 10 GPS", battery: "Consultar", color: "Consultar", warranty: "Consultar", acceptTrade: "Troca sob análise", replacedParts: "Ideal para rotina, treino e conectividade.", price: "R$ 2.589,99", installment: "Parcelamento em até 18x", image: "", sold: false, clicks: 0, createdAt: new Date().toISOString() }
+      {
+        id: crypto.randomUUID(),
+        category: "iphone",
+        categoryLabel: "iPhone",
+        productType: "Lacrado",
+        name: "iPhone 17 Pro Max 256GB",
+        battery: "100%",
+        color: "Grey",
+        warranty: "1 ano Apple",
+        acceptTrade: "Sob análise",
+        replacedParts: "Produto lacrado.",
+        price: "R$ 8.499,99",
+        image: "",
+        sold: false,
+        clicks: 0,
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: crypto.randomUUID(),
+        category: "iphone",
+        categoryLabel: "iPhone",
+        productType: "Semi-novo",
+        name: "iPhone 15 Pro Max 256GB",
+        battery: "83%",
+        color: "Titânio Natural",
+        warranty: "3 meses",
+        acceptTrade: "Sob análise",
+        replacedParts: "Sem observações relevantes.",
+        price: "R$ 4.679,99",
+        image: "",
+        sold: false,
+        clicks: 0,
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: crypto.randomUUID(),
+        category: "watch",
+        categoryLabel: "Apple Watch",
+        productType: "Semi-novo",
+        name: "Apple Watch Series 10 GPS",
+        battery: "Consultar",
+        color: "Consultar",
+        warranty: "Consultar",
+        acceptTrade: "Sob análise",
+        replacedParts: "Ideal para rotina, treino e conectividade.",
+        price: "R$ 2.589,99",
+        image: "",
+        sold: false,
+        clicks: 0,
+        createdAt: new Date().toISOString()
+      }
     ];
 
-    function formatPriceBRL(value) {
-      let raw = String(value || "").trim();
-      if (!raw) return "Consultar valor";
-      if (raw.toLowerCase().includes("r$")) return raw;
-      const onlyNumbers = raw.replace(/[^0-9,\.]/g, "");
-      if (!onlyNumbers) return raw;
-      if (onlyNumbers.includes(",")) return `R$ ${onlyNumbers}`;
-      const number = Number(onlyNumbers.replace(/\./g, ""));
-      if (Number.isNaN(number)) return `R$ ${raw}`;
-      return number.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    function getCategoryLabel(category) {
+      const labels = {
+        iphone: "iPhone",
+        watch: "Apple Watch",
+        airpods: "AirPods",
+        assistencia: "Assistência Técnica"
+      };
+      return labels[category] || "Produto";
     }
 
-    function getCategoryLabel(category) { return { iphone: "iPhone", watch: "Apple Watch", airpods: "AirPods", assistencia: "Assistência Técnica" }[category] || "Produto"; }
-    function loadProducts() { const saved = localStorage.getItem("ckProductsV4"); if (saved) return JSON.parse(saved); localStorage.setItem("ckProductsV4", JSON.stringify(defaultProducts)); return defaultProducts; }
-    function saveProducts(products) { localStorage.setItem("ckProductsV4", JSON.stringify(products)); }
-    let products = loadProducts();
+    function formatPriceBR(value) {
+      if (!value) return "Consultar valor";
+
+      let cleaned = String(value).trim().replace(/R\$/gi, "").trim();
+
+      if (cleaned.includes(",")) {
+        cleaned = cleaned.replace(/\./g, "").replace(",", ".");
+      } else {
+        cleaned = cleaned.replace(/\./g, "");
+      }
+
+      const number = Number(cleaned);
+      if (Number.isNaN(number)) return String(value).trim();
+
+      return number.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function formatBattery(value) {
+      const battery = String(value || "").trim();
+      if (!battery) return "Consultar";
+      if (battery.toLowerCase().includes("consult")) return battery;
+      if (battery.includes("%")) return battery;
+      return `${battery}%`;
+    }
+
+    function loadProducts() {
+      const saved = localStorage.getItem("ckProductsV4");
+      if (saved) return JSON.parse(saved);
+      localStorage.setItem("ckProductsV4", JSON.stringify(defaultProducts));
+      return defaultProducts;
+    }
+
+    function saveProducts(productList) {
+      localStorage.setItem("ckProductsV4", JSON.stringify(productList));
+    }
+
+    let products = loadProducts().map(product => ({
+      ...product,
+      acceptTrade: product.acceptTrade === "Não aceita troca" ? "Não aceita troca" : "Sob análise"
+    }));
+    saveProducts(products);
 
     const productsGrid = document.getElementById("productsGrid");
     const filterButtons = document.querySelectorAll(".filter-btn");
@@ -328,62 +1250,234 @@
     const productForm = document.getElementById("productForm");
     const supportCard = document.getElementById("supportCard");
 
-    function buildWhatsAppLink(productName) { const text = `Olá, vim pelo site da CK iPHONES e tenho interesse em: ${productName}. Pode me passar mais detalhes?`; return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`; }
-    function getProductSpecs(product) { return [ product.productType ? `Tipo: ${product.productType}` : "Tipo: consultar", product.battery ? `Bateria: ${product.battery}` : "Bateria: consultar", product.color ? `Cor: ${product.color}` : "Cor: consultar", product.warranty ? `Garantia: ${product.warranty}` : "Garantia: consultar", product.acceptTrade ? `Troca: ${product.acceptTrade}` : "Troca: sob análise", product.replacedParts ? `Obs: ${product.replacedParts}` : "" ].filter(Boolean); }
+    function buildWhatsAppLink(productName) {
+      const text = `Olá, vim pelo site da CK iPHONES e tenho interesse em: ${productName}. Pode me passar mais detalhes?`;
+      return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
+    }
+
+    function getProductSpecs(product) {
+      return [
+        product.productType ? `Tipo: ${product.productType}` : "Tipo: consultar",
+        product.battery ? `Bateria: ${product.battery}` : "Bateria: consultar",
+        product.color ? `Cor: ${product.color}` : "Cor: consultar",
+        product.warranty ? `Garantia: ${product.warranty}` : "Garantia: consultar",
+        product.acceptTrade ? `Troca: ${product.acceptTrade}` : "Troca: Sob análise",
+        product.replacedParts ? `Obs: ${product.replacedParts}` : ""
+      ].filter(Boolean);
+    }
 
     function renderProducts(filter = "todos") {
       currentFilter = filter;
       const filteredProducts = filter === "todos" ? products : products.filter(product => product.category === filter);
-      if (filteredProducts.length === 0) { productsGrid.innerHTML = `<div class="product-card" style="grid-column:1/-1;text-align:center;padding:42px;"><h3>Nenhum item nesta categoria ainda.</h3><p style="color:#aaa;margin-top:8px;">Novos aparelhos serão adicionados em breve.</p></div>`; return; }
+
+      if (filteredProducts.length === 0) {
+        productsGrid.innerHTML = `
+          <div class="product-card" style="grid-column:1/-1;text-align:center;padding:42px;">
+            <h3>Nenhum item nesta categoria ainda.</h3>
+            <p style="color:#aaa;margin-top:8px;">Novos aparelhos serão adicionados em breve.</p>
+          </div>
+        `;
+        return;
+      }
+
       productsGrid.innerHTML = filteredProducts.map(product => `
         <article class="product-card ${product.sold ? "sold" : ""}">
           ${product.sold ? `<div class="sold-ribbon">VENDIDO</div>` : ""}
-          <div class="product-image">${product.image ? `<img src="${product.image}" alt="${product.name}">` : `<div class="mini-phone"></div>`}</div>
+          <div class="product-image">
+            ${product.image ? `<img src="${product.image}" alt="${product.name}">` : `<img src="logo-principal.png" alt="CK iPHONES" style="object-fit:contain;background:#fff;padding:12px;">`}
+          </div>
           <div class="product-category">${product.categoryLabel || getCategoryLabel(product.category)} • ${product.productType || "Semi-novo"}</div>
           <h3>${product.name}</h3>
-          <div class="specs">${getProductSpecs(product).map(spec => `<span>${spec}</span>`).join("")}</div>
-          <div class="price">${formatPriceBRL(product.price)}</div>
+          <div class="specs">
+            ${getProductSpecs(product).map(spec => `<span>${spec}</span>`).join("")}
+          </div>
+          <div class="price">${product.price}</div>
           <div class="installment">Parcelamento em até 18x</div>
-          ${product.sold ? `<button class="btn btn-secondary" disabled>Produto vendido</button>` : `<a class="btn btn-primary" href="${buildWhatsAppLink(product.name)}" target="_blank" onclick="registerClick('${product.id}')">Tenho interesse</a>`}
-        </article>`).join("");
+          ${product.sold
+            ? `<button class="btn btn-secondary" disabled>Produto vendido</button>`
+            : `<a class="btn btn-primary" href="${buildWhatsAppLink(product.name)}" target="_blank" onclick="registerClick('${product.id}')">Tenho interesse</a>`
+          }
+        </article>
+      `).join("");
     }
 
-    function registerClick(productId) { products = products.map(product => product.id === productId ? { ...product, clicks: (product.clicks || 0) + 1 } : product); saveProducts(products); renderAdminList(); }
-    filterButtons.forEach(button => button.addEventListener("click", () => { filterButtons.forEach(btn => btn.classList.remove("active")); button.classList.add("active"); renderProducts(button.dataset.filter); }));
+    function registerClick(productId) {
+      products = products.map(product => product.id === productId
+        ? { ...product, clicks: (product.clicks || 0) + 1 }
+        : product
+      );
+      saveProducts(products);
+      renderAdminList();
+    }
 
-    function openAdmin() { adminOverlay.classList.add("open"); renderAdminList(); }
-    function closeAdmin() { adminOverlay.classList.remove("open"); }
-    function loginAdmin() { const typedPassword = document.getElementById("adminPassword").value; if (typedPassword === adminPassword) { loginBox.style.display = "none"; adminPanel.classList.add("active"); renderAdminList(); } else alert("Senha incorreta."); }
-    function openInstagramPopup() { document.getElementById("instagramPopup").classList.add("open"); }
-    function closeInstagramPopup() { document.getElementById("instagramPopup").classList.remove("open"); }
-    function toggleSupport() { supportCard.classList.toggle("open"); }
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        renderProducts(button.dataset.filter);
+      });
+    });
 
-    imageInput.addEventListener("change", event => { const file = event.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = e => { selectedImageBase64 = e.target.result; imagePreview.innerHTML = `<img src="${selectedImageBase64}" alt="Prévia do produto">`; }; reader.readAsDataURL(file); });
+    function openAdmin() {
+      adminOverlay.classList.add("open");
+      renderAdminList();
+    }
+
+    function closeAdmin() {
+      adminOverlay.classList.remove("open");
+    }
+
+    function loginAdmin() {
+      const typedPassword = document.getElementById("adminPassword").value;
+      if (typedPassword === adminPassword) {
+        loginBox.style.display = "none";
+        adminPanel.classList.add("active");
+        renderAdminList();
+      } else {
+        alert("Senha incorreta.");
+      }
+    }
+
+    function openInstagramPopup() {
+      document.getElementById("instagramPopup").classList.add("open");
+    }
+
+    function closeInstagramPopup() {
+      document.getElementById("instagramPopup").classList.remove("open");
+    }
+
+    function toggleSupport() {
+      supportCard.classList.toggle("open");
+    }
+
+    imageInput.addEventListener("change", event => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = e => {
+        selectedImageBase64 = e.target.result;
+        imagePreview.innerHTML = `<img src="${selectedImageBase64}" alt="Prévia do produto">`;
+      };
+      reader.readAsDataURL(file);
+    });
 
     productForm.addEventListener("submit", event => {
       event.preventDefault();
+
       const category = document.getElementById("category").value;
-      const newProduct = { id: crypto.randomUUID(), category, categoryLabel: getCategoryLabel(category), productType: document.getElementById("productType").value, name: document.getElementById("name").value.trim(), price: formatPriceBRL(document.getElementById("price").value.trim()), installment: "Parcelamento em até 18x", battery: document.getElementById("battery").value.trim(), color: document.getElementById("color").value.trim(), warranty: document.getElementById("warranty").value.trim(), acceptTrade: document.getElementById("acceptTrade").value, replacedParts: document.getElementById("replacedParts").value.trim(), image: selectedImageBase64, sold: false, clicks: 0, createdAt: new Date().toISOString() };
-      products.unshift(newProduct); saveProducts(products); resetForm(); renderProducts(currentFilter); renderAdminList(); alert("Item cadastrado no catálogo.");
+
+      const newProduct = {
+        id: crypto.randomUUID(),
+        category,
+        categoryLabel: getCategoryLabel(category),
+        productType: document.getElementById("productType").value,
+        name: document.getElementById("name").value.trim(),
+        price: formatPriceBR(document.getElementById("price").value),
+        battery: formatBattery(document.getElementById("battery").value),
+        color: document.getElementById("color").value.trim() || "Consultar",
+        warranty: document.getElementById("warranty").value.trim() || "Consultar",
+        acceptTrade: document.getElementById("acceptTrade").value,
+        replacedParts: document.getElementById("replacedParts").value.trim(),
+        image: selectedImageBase64,
+        sold: false,
+        clicks: 0,
+        createdAt: new Date().toISOString()
+      };
+
+      products.unshift(newProduct);
+      saveProducts(products);
+      resetForm();
+      renderProducts(currentFilter);
+      renderAdminList();
+      alert("Item cadastrado no catálogo.");
     });
 
-    function resetForm() { productForm.reset(); selectedImageBase64 = ""; imagePreview.innerHTML = "Prévia da imagem"; }
-    function toggleSold(productId) { products = products.map(product => product.id === productId ? { ...product, sold: !product.sold } : product); saveProducts(products); renderProducts(currentFilter); renderAdminList(); }
-    function deleteProduct(productId) { if (!confirm("Tem certeza que deseja excluir este item do catálogo?")) return; products = products.filter(product => product.id !== productId); saveProducts(products); renderProducts(currentFilter); renderAdminList(); }
-    function resetClicks(productId) { products = products.map(product => product.id === productId ? { ...product, clicks: 0 } : product); saveProducts(products); renderAdminList(); }
-
-    function renderAdminList() {
-      const adminList = document.getElementById("adminList"), totalProducts = document.getElementById("totalProducts"), totalSold = document.getElementById("totalSold"), totalClicks = document.getElementById("totalClicks");
-      if (!adminList || !totalProducts || !totalSold || !totalClicks) return;
-      const clicks = products.reduce((sum, product) => sum + (product.clicks || 0), 0);
-      totalProducts.textContent = products.length; totalSold.textContent = products.filter(product => product.sold).length; totalClicks.textContent = clicks;
-      if (products.length === 0) { adminList.innerHTML = `<p style="color:#aaa;">Nenhum produto cadastrado ainda.</p>`; return; }
-      const sortedProducts = [...products].sort((a,b) => (b.clicks || 0) - (a.clicks || 0));
-      adminList.innerHTML = sortedProducts.map(product => `<div class="admin-item"><div class="admin-thumb">${product.image ? `<img src="${product.image}" alt="${product.name}">` : ""}</div><div><h4>${product.name}</h4><div class="admin-meta">${formatPriceBRL(product.price)} • ${product.categoryLabel || getCategoryLabel(product.category)} • ${product.productType || "Semi-novo"} • ${product.sold ? "Vendido" : "Disponível"}<br>Cliques: <strong>${product.clicks || 0}</strong><br>Bateria: ${product.battery || "Consultar"} • Troca: ${product.acceptTrade || "Sob análise"}</div><div class="small-actions"><button class="btn ${product.sold ? "btn-success" : "btn-secondary"}" onclick="toggleSold('${product.id}')">${product.sold ? "Voltar disponível" : "Marcar vendido"}</button><button class="btn btn-secondary" onclick="resetClicks('${product.id}')">Zerar cliques</button><button class="btn btn-danger" onclick="deleteProduct('${product.id}')">Excluir</button></div></div></div>`).join("");
+    function resetForm() {
+      productForm.reset();
+      selectedImageBase64 = "";
+      imagePreview.innerHTML = "Prévia da imagem";
     }
 
-    adminOverlay.addEventListener("click", event => { if (event.target === adminOverlay) closeAdmin(); });
-    document.getElementById("instagramPopup").addEventListener("click", event => { if (event.target.id === "instagramPopup") closeInstagramPopup(); });
+    function toggleSold(productId) {
+      products = products.map(product => product.id === productId
+        ? { ...product, sold: !product.sold }
+        : product
+      );
+      saveProducts(products);
+      renderProducts(currentFilter);
+      renderAdminList();
+    }
+
+    function deleteProduct(productId) {
+      if (!confirm("Tem certeza que deseja excluir este item do catálogo?")) return;
+      products = products.filter(product => product.id !== productId);
+      saveProducts(products);
+      renderProducts(currentFilter);
+      renderAdminList();
+    }
+
+    function resetClicks(productId) {
+      products = products.map(product => product.id === productId
+        ? { ...product, clicks: 0 }
+        : product
+      );
+      saveProducts(products);
+      renderAdminList();
+    }
+
+    function renderAdminList() {
+      const adminList = document.getElementById("adminList");
+      const totalProducts = document.getElementById("totalProducts");
+      const totalSold = document.getElementById("totalSold");
+      const totalClicks = document.getElementById("totalClicks");
+
+      if (!adminList || !totalProducts || !totalSold || !totalClicks) return;
+
+      const clicks = products.reduce((sum, product) => sum + (product.clicks || 0), 0);
+      totalProducts.textContent = products.length;
+      totalSold.textContent = products.filter(product => product.sold).length;
+      totalClicks.textContent = clicks;
+
+      if (products.length === 0) {
+        adminList.innerHTML = `<p style="color:#aaa;">Nenhum produto cadastrado ainda.</p>`;
+        return;
+      }
+
+      const sortedProducts = [...products].sort((a, b) => (b.clicks || 0) - (a.clicks || 0));
+
+      adminList.innerHTML = sortedProducts.map(product => `
+        <div class="admin-item">
+          <div class="admin-thumb">
+            ${product.image ? `<img src="${product.image}" alt="${product.name}">` : `<img src="logo-principal.png" alt="CK">`}
+          </div>
+          <div>
+            <h4>${product.name}</h4>
+            <div class="admin-meta">
+              ${product.price} • ${product.categoryLabel || getCategoryLabel(product.category)} • ${product.productType || "Semi-novo"} • ${product.sold ? "Vendido" : "Disponível"}<br>
+              Cliques: <strong>${product.clicks || 0}</strong><br>
+              Bateria: ${product.battery || "Consultar"} • Troca: ${product.acceptTrade || "Sob análise"}
+            </div>
+            <div class="small-actions">
+              <button class="btn ${product.sold ? "btn-success" : "btn-secondary"}" onclick="toggleSold('${product.id}')">
+                ${product.sold ? "Voltar disponível" : "Marcar vendido"}
+              </button>
+              <button class="btn btn-secondary" onclick="resetClicks('${product.id}')">Zerar cliques</button>
+              <button class="btn btn-danger" onclick="deleteProduct('${product.id}')">Excluir</button>
+            </div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    adminOverlay.addEventListener("click", event => {
+      if (event.target === adminOverlay) closeAdmin();
+    });
+
+    document.getElementById("instagramPopup").addEventListener("click", event => {
+      if (event.target.id === "instagramPopup") closeInstagramPopup();
+    });
+
     renderProducts();
   </script>
 </body>
