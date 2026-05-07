@@ -12,6 +12,10 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       background: #050505;
       color: #f5f5f7;
@@ -23,6 +27,10 @@
       color: inherit;
     }
 
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
     .container {
       width: min(1180px, 92%);
       margin: 0 auto;
@@ -31,7 +39,7 @@
     header {
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
       background: rgba(5, 5, 5, 0.78);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -42,6 +50,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 20px;
     }
 
     .logo {
@@ -63,19 +72,27 @@
 
     .nav-links {
       display: flex;
-      gap: 26px;
+      gap: 20px;
       align-items: center;
       color: #d1d1d6;
       font-size: 0.95rem;
     }
 
-    .nav-links a:hover {
+    .nav-links a, .nav-links button {
+      background: transparent;
+      border: 0;
+      color: inherit;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover, .nav-links button:hover {
       color: #fff;
     }
 
     .whatsapp-top {
-      background: #fff;
-      color: #000;
+      background: #fff !important;
+      color: #000 !important;
       padding: 11px 18px;
       border-radius: 999px;
       font-weight: 700;
@@ -156,7 +173,9 @@
       transition: 0.25s;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
+      text-align: center;
     }
 
     .btn-primary {
@@ -167,6 +186,18 @@
     .btn-secondary {
       background: rgba(255,255,255,0.06);
       color: #fff;
+    }
+
+    .btn-danger {
+      background: rgba(255, 79, 79, 0.16);
+      color: #ffb3b3;
+      border-color: rgba(255, 79, 79, 0.25);
+    }
+
+    .btn-success {
+      background: rgba(66, 255, 160, 0.14);
+      color: #c8ffdf;
+      border-color: rgba(66, 255, 160, 0.22);
     }
 
     .btn:hover {
@@ -217,6 +248,7 @@
       height: 24px;
       background: #000;
       border-radius: 999px;
+      z-index: 2;
     }
 
     .phone-screen {
@@ -306,6 +338,24 @@
       padding: 20px;
       transition: 0.25s;
       overflow: hidden;
+      position: relative;
+    }
+
+    .product-card.sold {
+      opacity: 0.55;
+    }
+
+    .sold-ribbon {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 2;
+      background: rgba(255,255,255,0.92);
+      color: #000;
+      font-weight: 900;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.78rem;
     }
 
     .product-card:hover {
@@ -324,9 +374,13 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 20px;
-      color: #777;
-      font-weight: 800;
-      letter-spacing: 1px;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .mini-phone {
@@ -374,7 +428,6 @@
 
     .product-card .btn {
       width: 100%;
-      justify-content: center;
       padding: 13px 18px;
     }
 
@@ -453,9 +506,249 @@
       flex-wrap: wrap;
     }
 
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.74);
+      backdrop-filter: blur(14px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .admin-modal {
+      width: min(1100px, 100%);
+      max-height: 92vh;
+      overflow: auto;
+      background: #101012;
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 30px;
+      box-shadow: 0 30px 100px rgba(0,0,0,0.75);
+    }
+
+    .admin-header {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: rgba(16,16,18,0.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .admin-header h2 {
+      font-size: 1.55rem;
+      letter-spacing: -0.8px;
+    }
+
+    .admin-body {
+      padding: 22px;
+    }
+
+    .login-box {
+      display: grid;
+      gap: 14px;
+      max-width: 420px;
+    }
+
+    .admin-grid {
+      display: none;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .admin-grid.active {
+      display: grid;
+    }
+
+    .admin-card {
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 24px;
+      padding: 20px;
+    }
+
+    .admin-card h3 {
+      margin-bottom: 16px;
+      font-size: 1.2rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: grid;
+      gap: 7px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      color: #c9c9cf;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      background: #050505;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 13px 14px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 78px;
+      resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(255,255,255,0.34);
+    }
+
+    .preview-img {
+      width: 100%;
+      height: 180px;
+      border-radius: 18px;
+      background: #060606;
+      border: 1px dashed rgba(255,255,255,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #888;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .preview-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .admin-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .admin-item {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 12px;
+    }
+
+    .admin-thumb {
+      width: 72px;
+      height: 72px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #272727, #050505);
+      overflow: hidden;
+    }
+
+    .admin-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .admin-item h4 {
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .admin-meta {
+      color: #aaa;
+      font-size: 0.86rem;
+      line-height: 1.45;
+      margin-bottom: 10px;
+    }
+
+    .small-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .small-actions .btn {
+      padding: 8px 11px;
+      font-size: 0.78rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .stat-box {
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .stat-box strong {
+      display: block;
+      font-size: 1.6rem;
+      margin-bottom: 4px;
+    }
+
+    .stat-box span {
+      color: #aaa;
+      font-size: 0.82rem;
+    }
+
+    .notice {
+      color: #aaa;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-top: 12px;
+      padding: 13px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .hidden-admin-trigger {
+      color: #777;
+      cursor: pointer;
+      user-select: none;
+    }
+
     @media (max-width: 920px) {
       .hero-content,
-      .cta {
+      .cta,
+      .admin-grid {
         grid-template-columns: 1fr;
       }
 
@@ -464,7 +757,7 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .nav-links {
+      .nav-links a:not(.whatsapp-top), .nav-links button {
         display: none;
       }
 
@@ -475,7 +768,9 @@
 
     @media (max-width: 620px) {
       .products-grid,
-      .benefits {
+      .benefits,
+      .form-grid,
+      .stats-grid {
         grid-template-columns: 1fr;
       }
 
@@ -504,6 +799,11 @@
       .cta {
         padding: 34px 24px;
       }
+
+      .admin-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -518,7 +818,7 @@
       <nav class="nav-links">
         <a href="#catalogo">Catálogo</a>
         <a href="#vantagens">Vantagens</a>
-        <a href="#contato">Contato</a>
+        <button onclick="openAdmin()">Admin</button>
         <a class="whatsapp-top" href="https://wa.me/5547999999999?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20CK%20iPHONES%20e%20quero%20ver%20os%20aparelhos%20dispon%C3%ADveis." target="_blank">WhatsApp</a>
       </nav>
     </div>
@@ -620,92 +920,295 @@
   <footer>
     <div class="container footer-content">
       <p>© 2026 CK iPHONES. Todos os direitos reservados.</p>
-      <p>Instagram: @ck.iphones • WhatsApp: (47) 99999-9999</p>
+      <p>Instagram: @ck.iphones • WhatsApp: (47) 99999-9999 • <span class="hidden-admin-trigger" onclick="openAdmin()">Área interna</span></p>
     </div>
   </footer>
 
+  <div class="modal-overlay" id="adminOverlay">
+    <div class="admin-modal">
+      <div class="admin-header">
+        <div>
+          <h2>Painel Admin CK iPHONES</h2>
+          <p style="color:#aaa; margin-top:6px;">Cadastrar, remover, vender itens e acompanhar cliques.</p>
+        </div>
+        <button class="btn btn-secondary" onclick="closeAdmin()">Fechar</button>
+      </div>
+
+      <div class="admin-body">
+        <div class="login-box" id="loginBox">
+          <div class="form-group">
+            <label>Senha do admin</label>
+            <input type="password" id="adminPassword" placeholder="Digite a senha" />
+          </div>
+          <button class="btn btn-primary" onclick="loginAdmin()">Entrar</button>
+          <p class="notice">Senha inicial: <strong>ckadmin123</strong>. Nesta versão, o painel é local para teste. Depois vamos transformar em painel real com banco de dados.</p>
+        </div>
+
+        <div class="admin-grid" id="adminPanel">
+          <div class="admin-card">
+            <h3>Cadastrar novo item</h3>
+            <form id="productForm">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Categoria</label>
+                  <select id="category" required>
+                    <option value="iphone">iPhone</option>
+                    <option value="watch">Apple Watch</option>
+                    <option value="airpods">AirPods</option>
+                    <option value="assistencia">Assistência</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Modelo do item</label>
+                  <input id="name" placeholder="Ex: iPhone 15 Pro Max 256GB" required />
+                </div>
+
+                <div class="form-group">
+                  <label>Preço</label>
+                  <input id="price" placeholder="Ex: R$ 4.679,99" required />
+                </div>
+
+                <div class="form-group">
+                  <label>Parcelamento</label>
+                  <input id="installment" placeholder="Ex: Até 18x" />
+                </div>
+
+                <div class="form-group">
+                  <label>Bateria</label>
+                  <input id="battery" placeholder="Ex: 83%" />
+                </div>
+
+                <div class="form-group">
+                  <label>Cor</label>
+                  <input id="color" placeholder="Ex: Titânio Natural" />
+                </div>
+
+                <div class="form-group">
+                  <label>Condição</label>
+                  <input id="condition" placeholder="Ex: Seminovo original" />
+                </div>
+
+                <div class="form-group">
+                  <label>Garantia</label>
+                  <input id="warranty" placeholder="Ex: 3 meses" />
+                </div>
+
+                <div class="form-group full">
+                  <label>Partes trocadas / observações</label>
+                  <textarea id="replacedParts" placeholder="Ex: Tela original trocada, marcas nas laterais por capinha..."></textarea>
+                </div>
+
+                <div class="form-group full">
+                  <label>Imagem do produto</label>
+                  <input type="file" id="imageInput" accept="image/*" />
+                  <div class="preview-img" id="imagePreview">Prévia da imagem</div>
+                </div>
+              </div>
+
+              <div class="admin-actions">
+                <button type="submit" class="btn btn-primary">Salvar item no catálogo</button>
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">Limpar campos</button>
+              </div>
+            </form>
+            <p class="notice">Ao salvar, o item entra no catálogo deste navegador. Para ficar online para todo mundo, a próxima etapa é conectar com Firebase/Supabase.</p>
+          </div>
+
+          <div class="admin-card">
+            <h3>Painel de produtos e cliques</h3>
+            <div class="stats-grid">
+              <div class="stat-box">
+                <strong id="totalProducts">0</strong>
+                <span>Itens cadastrados</span>
+              </div>
+              <div class="stat-box">
+                <strong id="totalSold">0</strong>
+                <span>Itens vendidos</span>
+              </div>
+              <div class="stat-box">
+                <strong id="totalClicks">0</strong>
+                <span>Cliques totais</span>
+              </div>
+            </div>
+            <div class="admin-list" id="adminList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     const whatsappNumber = "5547999999999";
+    const adminPassword = "ckadmin123";
+    let selectedImageBase64 = "";
+    let currentFilter = "todos";
 
-    const products = [
+    const defaultProducts = [
       {
+        id: crypto.randomUUID(),
         category: "iphone",
         categoryLabel: "iPhone Seminovo",
         name: "iPhone 15 Pro Max 256GB",
-        specs: ["Bateria: 83%", "Cor: Titânio Natural", "Estado: Seminovo original", "Garantia: 3 meses"],
+        battery: "83%",
+        color: "Titânio Natural",
+        condition: "Seminovo original",
+        warranty: "3 meses",
+        replacedParts: "Sem observações relevantes.",
         price: "R$ 4.679,99",
         installment: "Parcelamento em até 18x",
+        image: "",
+        sold: false,
+        clicks: 0,
+        createdAt: new Date().toISOString()
       },
       {
+        id: crypto.randomUUID(),
         category: "iphone",
         categoryLabel: "iPhone Seminovo",
         name: "iPhone 15 Pro 512GB",
-        specs: ["Cor: Preto", "Estado: Seminovo original", "Garantia: 3 meses", "Pronta entrega"],
+        battery: "Consultar",
+        color: "Preto",
+        condition: "Seminovo original",
+        warranty: "3 meses",
+        replacedParts: "Pronta entrega.",
         price: "R$ 4.399,99",
         installment: "Parcelamento em até 12x",
+        image: "",
+        sold: false,
+        clicks: 0,
+        createdAt: new Date().toISOString()
       },
       {
+        id: crypto.randomUUID(),
         category: "iphone",
         categoryLabel: "iPhone Seminovo",
         name: "iPhone 14 Pro 128GB",
-        specs: ["Bateria: 86%", "Cor: Black Titanium", "Marcas de uso laterais", "Tela original trocada"],
+        battery: "86%",
+        color: "Black Titanium",
+        condition: "Marcas de uso apenas nas laterais por conta de capinha",
+        warranty: "3 meses",
+        replacedParts: "Tela foi trocada por outra original.",
         price: "R$ 2.999,99",
         installment: "Consulte condições",
+        image: "",
+        sold: false,
+        clicks: 0,
+        createdAt: new Date().toISOString()
       },
       {
+        id: crypto.randomUUID(),
         category: "watch",
         categoryLabel: "Apple Watch",
         name: "Apple Watch Series 10 GPS",
-        specs: ["Modelo GPS", "Original Apple", "Design premium", "Ideal para rotina e treino"],
+        battery: "Consultar",
+        color: "Consultar",
+        condition: "Original Apple",
+        warranty: "Consultar",
+        replacedParts: "Ideal para rotina, treino e conectividade.",
         price: "R$ 2.589,99",
         installment: "Consulte parcelamento",
-      },
-      {
-        category: "airpods",
-        categoryLabel: "AirPods",
-        name: "AirPods Pro",
-        specs: ["Cancelamento de ruído", "Áudio espacial", "Original Apple", "Sob consulta"],
-        price: "Consultar valor",
-        installment: "Chame no WhatsApp",
-      },
-      {
-        category: "assistencia",
-        categoryLabel: "Assistência Técnica",
-        name: "Troca de Tela, Bateria e Tampa",
-        specs: ["Atendimento especializado", "Diagnóstico sob consulta", "Peças conforme disponibilidade", "Suporte para iPhone"],
-        price: "Sob orçamento",
-        installment: "Solicite avaliação",
-      },
+        image: "",
+        sold: false,
+        clicks: 0,
+        createdAt: new Date().toISOString()
+      }
     ];
+
+    function getCategoryLabel(category) {
+      const labels = {
+        iphone: "iPhone",
+        watch: "Apple Watch",
+        airpods: "AirPods",
+        assistencia: "Assistência Técnica"
+      };
+      return labels[category] || "Produto";
+    }
+
+    function loadProducts() {
+      const saved = localStorage.getItem("ckProductsV2");
+      if (saved) {
+        return JSON.parse(saved);
+      }
+      localStorage.setItem("ckProductsV2", JSON.stringify(defaultProducts));
+      return defaultProducts;
+    }
+
+    function saveProducts(products) {
+      localStorage.setItem("ckProductsV2", JSON.stringify(products));
+    }
+
+    let products = loadProducts();
 
     const productsGrid = document.getElementById("productsGrid");
     const filterButtons = document.querySelectorAll(".filter-btn");
+    const adminOverlay = document.getElementById("adminOverlay");
+    const loginBox = document.getElementById("loginBox");
+    const adminPanel = document.getElementById("adminPanel");
+    const imageInput = document.getElementById("imageInput");
+    const imagePreview = document.getElementById("imagePreview");
+    const productForm = document.getElementById("productForm");
 
     function buildWhatsAppLink(productName) {
       const text = `Olá, vim pelo site da CK iPHONES e tenho interesse em: ${productName}. Pode me passar mais detalhes?`;
       return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
     }
 
+    function getProductSpecs(product) {
+      return [
+        product.battery ? `Bateria: ${product.battery}` : "Bateria: consultar",
+        product.color ? `Cor: ${product.color}` : "Cor: consultar",
+        product.condition ? `Condição: ${product.condition}` : "Condição: consultar",
+        product.warranty ? `Garantia: ${product.warranty}` : "Garantia: consultar",
+        product.replacedParts ? `Obs: ${product.replacedParts}` : ""
+      ].filter(Boolean);
+    }
+
     function renderProducts(filter = "todos") {
+      currentFilter = filter;
       const filteredProducts = filter === "todos"
         ? products
         : products.filter(product => product.category === filter);
 
-      productsGrid.innerHTML = filteredProducts.map(product => `
-        <article class="product-card">
-          <div class="product-image">
-            <div class="mini-phone"></div>
+      if (filteredProducts.length === 0) {
+        productsGrid.innerHTML = `
+          <div class="product-card" style="grid-column: 1 / -1; text-align:center; padding:42px;">
+            <h3>Nenhum item nesta categoria ainda.</h3>
+            <p style="color:#aaa; margin-top:8px;">Novos aparelhos serão adicionados em breve.</p>
           </div>
-          <div class="product-category">${product.categoryLabel}</div>
+        `;
+        return;
+      }
+
+      productsGrid.innerHTML = filteredProducts.map(product => `
+        <article class="product-card ${product.sold ? "sold" : ""}">
+          ${product.sold ? `<div class="sold-ribbon">VENDIDO</div>` : ""}
+          <div class="product-image">
+            ${product.image ? `<img src="${product.image}" alt="${product.name}">` : `<div class="mini-phone"></div>`}
+          </div>
+          <div class="product-category">${product.categoryLabel || getCategoryLabel(product.category)}</div>
           <h3>${product.name}</h3>
           <div class="specs">
-            ${product.specs.map(spec => `<span>${spec}</span>`).join("")}
+            ${getProductSpecs(product).map(spec => `<span>${spec}</span>`).join("")}
           </div>
           <div class="price">${product.price}</div>
-          <div class="installment">${product.installment}</div>
-          <a class="btn btn-primary" href="${buildWhatsAppLink(product.name)}" target="_blank">Tenho interesse</a>
+          <div class="installment">${product.installment || "Consulte condições"}</div>
+          ${product.sold
+            ? `<button class="btn btn-secondary" disabled>Produto vendido</button>`
+            : `<a class="btn btn-primary" href="${buildWhatsAppLink(product.name)}" target="_blank" onclick="registerClick('${product.id}')">Tenho interesse</a>`
+          }
         </article>
       `).join("");
+    }
+
+    function registerClick(productId) {
+      products = products.map(product => {
+        if (product.id === productId) {
+          return { ...product, clicks: (product.clicks || 0) + 1 };
+        }
+        return product;
+      });
+      saveProducts(products);
+      renderAdminList();
     }
 
     filterButtons.forEach(button => {
@@ -714,6 +1217,156 @@
         button.classList.add("active");
         renderProducts(button.dataset.filter);
       });
+    });
+
+    function openAdmin() {
+      adminOverlay.classList.add("open");
+      renderAdminList();
+    }
+
+    function closeAdmin() {
+      adminOverlay.classList.remove("open");
+    }
+
+    function loginAdmin() {
+      const typedPassword = document.getElementById("adminPassword").value;
+      if (typedPassword === adminPassword) {
+        loginBox.style.display = "none";
+        adminPanel.classList.add("active");
+        renderAdminList();
+      } else {
+        alert("Senha incorreta.");
+      }
+    }
+
+    imageInput.addEventListener("change", function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        selectedImageBase64 = e.target.result;
+        imagePreview.innerHTML = `<img src="${selectedImageBase64}" alt="Prévia do produto">`;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    productForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const newProduct = {
+        id: crypto.randomUUID(),
+        category: document.getElementById("category").value,
+        categoryLabel: getCategoryLabel(document.getElementById("category").value),
+        name: document.getElementById("name").value.trim(),
+        price: document.getElementById("price").value.trim(),
+        installment: document.getElementById("installment").value.trim() || "Consulte condições",
+        battery: document.getElementById("battery").value.trim(),
+        color: document.getElementById("color").value.trim(),
+        condition: document.getElementById("condition").value.trim(),
+        warranty: document.getElementById("warranty").value.trim(),
+        replacedParts: document.getElementById("replacedParts").value.trim(),
+        image: selectedImageBase64,
+        sold: false,
+        clicks: 0,
+        createdAt: new Date().toISOString()
+      };
+
+      products.unshift(newProduct);
+      saveProducts(products);
+      resetForm();
+      renderProducts(currentFilter);
+      renderAdminList();
+      alert("Item cadastrado no catálogo.");
+    });
+
+    function resetForm() {
+      productForm.reset();
+      selectedImageBase64 = "";
+      imagePreview.innerHTML = "Prévia da imagem";
+    }
+
+    function toggleSold(productId) {
+      products = products.map(product => {
+        if (product.id === productId) {
+          return { ...product, sold: !product.sold };
+        }
+        return product;
+      });
+      saveProducts(products);
+      renderProducts(currentFilter);
+      renderAdminList();
+    }
+
+    function deleteProduct(productId) {
+      const confirmDelete = confirm("Tem certeza que deseja excluir este item do catálogo?");
+      if (!confirmDelete) return;
+
+      products = products.filter(product => product.id !== productId);
+      saveProducts(products);
+      renderProducts(currentFilter);
+      renderAdminList();
+    }
+
+    function resetClicks(productId) {
+      products = products.map(product => {
+        if (product.id === productId) {
+          return { ...product, clicks: 0 };
+        }
+        return product;
+      });
+      saveProducts(products);
+      renderAdminList();
+    }
+
+    function renderAdminList() {
+      const adminList = document.getElementById("adminList");
+      const totalProducts = document.getElementById("totalProducts");
+      const totalSold = document.getElementById("totalSold");
+      const totalClicks = document.getElementById("totalClicks");
+
+      if (!adminList || !totalProducts || !totalSold || !totalClicks) return;
+
+      const clicks = products.reduce((sum, product) => sum + (product.clicks || 0), 0);
+      totalProducts.textContent = products.length;
+      totalSold.textContent = products.filter(product => product.sold).length;
+      totalClicks.textContent = clicks;
+
+      if (products.length === 0) {
+        adminList.innerHTML = `<p style="color:#aaa;">Nenhum produto cadastrado ainda.</p>`;
+        return;
+      }
+
+      const sortedProducts = [...products].sort((a, b) => (b.clicks || 0) - (a.clicks || 0));
+
+      adminList.innerHTML = sortedProducts.map(product => `
+        <div class="admin-item">
+          <div class="admin-thumb">
+            ${product.image ? `<img src="${product.image}" alt="${product.name}">` : ""}
+          </div>
+          <div>
+            <h4>${product.name}</h4>
+            <div class="admin-meta">
+              ${product.price} • ${product.categoryLabel || getCategoryLabel(product.category)} • ${product.sold ? "Vendido" : "Disponível"}<br>
+              Cliques: <strong>${product.clicks || 0}</strong><br>
+              Bateria: ${product.battery || "Consultar"} • Condição: ${product.condition || "Consultar"}
+            </div>
+            <div class="small-actions">
+              <button class="btn ${product.sold ? "btn-success" : "btn-secondary"}" onclick="toggleSold('${product.id}')">
+                ${product.sold ? "Voltar disponível" : "Marcar vendido"}
+              </button>
+              <button class="btn btn-secondary" onclick="resetClicks('${product.id}')">Zerar cliques</button>
+              <button class="btn btn-danger" onclick="deleteProduct('${product.id}')">Excluir</button>
+            </div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    adminOverlay.addEventListener("click", function(event) {
+      if (event.target === adminOverlay) {
+        closeAdmin();
+      }
     });
 
     renderProducts();
