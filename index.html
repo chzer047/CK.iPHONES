@@ -1039,6 +1039,53 @@
       margin-bottom: 14px;
     }
 
+    .analytics-highlight {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .highlight-box {
+      background: linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.035));
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 20px;
+      padding: 15px;
+    }
+
+    .highlight-box span {
+      display: block;
+      color: #aaa;
+      font-size: .8rem;
+      margin-bottom: 6px;
+    }
+
+    .highlight-box strong {
+      display: block;
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+
+    .highlight-box small {
+      display: block;
+      color: #c7c7cc;
+      margin-top: 6px;
+    }
+
+    .conversion-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.10);
+      font-size: .78rem;
+      font-weight: 850;
+      margin-top: 7px;
+    }
+
     .stat-box {
       background: rgba(255,255,255,.055);
       border: 1px solid rgba(255,255,255,.08);
@@ -1087,6 +1134,7 @@
       .benefits,
       .form-grid,
       .stats-grid,
+      .analytics-highlight,
       .detail-spec-grid { grid-template-columns: 1fr; }
       .detail-body { padding: 16px; }
       .detail-image { min-height: 300px; border-radius: 22px; }
@@ -1373,6 +1421,20 @@
               <div class="stat-box"><strong id="totalViews">0</strong><span>Visualizações</span></div>
               <div class="stat-box"><strong id="totalClicks">0</strong><span>WhatsApp</span></div>
             </div>
+
+            <div class="analytics-highlight">
+              <div class="highlight-box">
+                <span>Produto mais visualizado</span>
+                <strong id="mostViewedProduct">Sem dados ainda</strong>
+                <small id="mostViewedMeta">0 visualizações</small>
+              </div>
+              <div class="highlight-box">
+                <span>Produto com maior intenção</span>
+                <strong id="bestConversionProduct">Sem dados ainda</strong>
+                <small id="bestConversionMeta">0% de conversão</small>
+              </div>
+            </div>
+
             <div class="admin-list" id="adminList"></div>
           </div>
         </div>
@@ -1772,12 +1834,27 @@
       renderAdminList();
     }
 
+    function getConversionRate(product) {
+      const views = product.views || 0;
+      const clicks = product.clicks || 0;
+      if (views === 0) return 0;
+      return (clicks / views) * 100;
+    }
+
+    function formatConversion(product) {
+      return `${getConversionRate(product).toFixed(1).replace(".", ",")}%`;
+    }
+
     function renderAdminList() {
       const adminList = document.getElementById("adminList");
       const totalProducts = document.getElementById("totalProducts");
       const totalSold = document.getElementById("totalSold");
       const totalViews = document.getElementById("totalViews");
       const totalClicks = document.getElementById("totalClicks");
+      const mostViewedProduct = document.getElementById("mostViewedProduct");
+      const mostViewedMeta = document.getElementById("mostViewedMeta");
+      const bestConversionProduct = document.getElementById("bestConversionProduct");
+      const bestConversionMeta = document.getElementById("bestConversionMeta");
 
       if (!adminList || !totalProducts || !totalSold || !totalViews || !totalClicks) return;
 
@@ -1787,6 +1864,21 @@
       totalSold.textContent = products.filter(product => product.sold).length;
       totalViews.textContent = views;
       totalClicks.textContent = clicks;
+
+      const mostViewed = [...products].sort((a, b) => (b.views || 0) - (a.views || 0))[0];
+      const bestConversion = [...products]
+        .filter(product => (product.views || 0) > 0)
+        .sort((a, b) => getConversionRate(b) - getConversionRate(a))[0];
+
+      if (mostViewedProduct && mostViewedMeta) {
+        mostViewedProduct.textContent = mostViewed && (mostViewed.views || 0) > 0 ? mostViewed.name : "Sem dados ainda";
+        mostViewedMeta.textContent = mostViewed && (mostViewed.views || 0) > 0 ? `${mostViewed.views || 0} visualizações • ${mostViewed.clicks || 0} WhatsApp` : "0 visualizações";
+      }
+
+      if (bestConversionProduct && bestConversionMeta) {
+        bestConversionProduct.textContent = bestConversion ? bestConversion.name : "Sem dados ainda";
+        bestConversionMeta.textContent = bestConversion ? `${formatConversion(bestConversion)} de conversão • ${bestConversion.clicks || 0}/${bestConversion.views || 0}` : "0% de conversão";
+      }
 
       if (products.length === 0) {
         adminList.innerHTML = `<p style="color:#aaa;">Nenhum produto cadastrado ainda.</p>`;
@@ -1805,6 +1897,7 @@
             <div class="admin-meta">
               ${product.price} • ${product.categoryLabel || getCategoryLabel(product.category)} • ${product.productType || "Semi-novo"} • ${product.sold ? "Vendido" : "Disponível"}<br>
               Visualizações: <strong>${product.views || 0}</strong> • WhatsApp: <strong>${product.clicks || 0}</strong><br>
+              Conversão: <span class="conversion-badge">${formatConversion(product)}</span><br>
               Bateria: ${product.battery || "Consultar"} • Troca: ${product.acceptTrade || "Sob análise"}
             </div>
             <div class="small-actions">
