@@ -1069,9 +1069,162 @@
       font-size: .78rem;
     }
 
+    .detail-modal {
+      width: min(1120px, 100%);
+      max-height: 92vh;
+      overflow: auto;
+      background: linear-gradient(145deg, rgba(18,18,20,.98), rgba(6,6,7,.98));
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 34px;
+      box-shadow: 0 34px 110px rgba(0,0,0,.78);
+      animation: popIn .24s ease;
+    }
+
+    .detail-header {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      background: rgba(14,14,16,.90);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .detail-header strong {
+      font-size: 1.05rem;
+      letter-spacing: -.3px;
+    }
+
+    .detail-body {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .detail-image {
+      min-height: 520px;
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 50% 25%, rgba(255,255,255,.20), transparent 34%),
+        linear-gradient(145deg,#1d1d1f,#050505);
+      border: 1px solid rgba(255,255,255,.10);
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .detail-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(130deg, rgba(255,255,255,.18), transparent 30%, transparent 70%, rgba(255,255,255,.08));
+      pointer-events: none;
+    }
+
+    .detail-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .detail-image img.logo-fallback {
+      object-fit: contain;
+      background: #fff;
+      padding: 32px;
+    }
+
+    .detail-info {
+      display: grid;
+      gap: 18px;
+    }
+
+    .detail-tag {
+      width: fit-content;
+      color: #000;
+      background: #fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: .82rem;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .detail-info h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      letter-spacing: -2px;
+      line-height: .98;
+    }
+
+    .detail-price {
+      font-size: 2rem;
+      font-weight: 950;
+      letter-spacing: -1px;
+    }
+
+    .detail-installment {
+      color: #aaa;
+      margin-top: -10px;
+    }
+
+    .detail-spec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .detail-spec {
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .detail-spec span {
+      display: block;
+      color: #aaa;
+      font-size: .78rem;
+      margin-bottom: 5px;
+    }
+
+    .detail-spec strong {
+      font-size: .98rem;
+    }
+
+    .detail-note {
+      color: #c7c7cc;
+      line-height: 1.55;
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+      padding: 16px;
+    }
+
+    .detail-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .detail-actions .btn {
+      width: 100%;
+    }
+
+    .detail-metrics {
+      color: #aaa;
+      font-size: .88rem;
+      text-align: center;
+    }
+
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(3,1fr);
+      grid-template-columns: repeat(4,1fr);
       gap: 12px;
       margin-bottom: 14px;
     }
@@ -1108,7 +1261,9 @@
     @media (max-width: 920px) {
       .hero-content,
       .cta,
-      .admin-grid { grid-template-columns: 1fr; }
+      .admin-grid,
+      .detail-body { grid-template-columns: 1fr; }
+      .detail-image { min-height: 380px; }
       .products-grid,
       .benefits { grid-template-columns: repeat(2,1fr); }
       .nav-links a:not(.whatsapp-top),
@@ -1121,7 +1276,11 @@
       .products-grid,
       .benefits,
       .form-grid,
-      .stats-grid { grid-template-columns: 1fr; }
+      .stats-grid,
+      .detail-spec-grid { grid-template-columns: 1fr; }
+      .detail-body { padding: 16px; }
+      .detail-image { min-height: 300px; border-radius: 22px; }
+      .detail-modal { border-radius: 24px; }
       .hero { min-height: auto; }
       .hero-content { padding: 54px 0; }
       .hero-card { min-height: 390px; }
@@ -1298,6 +1457,16 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="productDetailOverlay">
+    <div class="detail-modal">
+      <div class="detail-header">
+        <strong>Detalhes do produto</strong>
+        <button class="btn btn-secondary" onclick="closeProductDetail()">Fechar</button>
+      </div>
+      <div class="detail-body" id="productDetailBody"></div>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="adminOverlay">
     <div class="admin-modal">
       <div class="admin-header">
@@ -1401,7 +1570,8 @@
             <div class="stats-grid">
               <div class="stat-box"><strong id="totalProducts">0</strong><span>Itens cadastrados</span></div>
               <div class="stat-box"><strong id="totalSold">0</strong><span>Itens vendidos</span></div>
-              <div class="stat-box"><strong id="totalClicks">0</strong><span>Cliques totais</span></div>
+              <div class="stat-box"><strong id="totalViews">0</strong><span>Visualizações</span></div>
+              <div class="stat-box"><strong id="totalClicks">0</strong><span>Cliques WhatsApp</span></div>
             </div>
             <div class="admin-list" id="adminList"></div>
           </div>
@@ -1432,8 +1602,9 @@
         image: "",
         sold: false,
         clicks: 0,
-        createdAt: new Date().toISOString()
-      },
+        createdAt: new Date().toISOString(),
+        views: 0
+      }
       {
         id: crypto.randomUUID(),
         category: "iphone",
@@ -1449,8 +1620,9 @@
         image: "",
         sold: false,
         clicks: 0,
-        createdAt: new Date().toISOString()
-      },
+        createdAt: new Date().toISOString(),
+        views: 0
+      }
       {
         id: crypto.randomUUID(),
         category: "watch",
@@ -1519,13 +1691,17 @@
 
     let products = loadProducts().map(product => ({
       ...product,
-      acceptTrade: product.acceptTrade === "Não aceita troca" ? "Não aceita troca" : "Sob análise"
+      acceptTrade: product.acceptTrade === "Não aceita troca" ? "Não aceita troca" : "Sob análise",
+      views: product.views || 0,
+      clicks: product.clicks || 0
     }));
     saveProducts(products);
 
     const productsGrid = document.getElementById("productsGrid");
     const filterButtons = document.querySelectorAll(".filter-btn");
     const adminOverlay = document.getElementById("adminOverlay");
+    const productDetailOverlay = document.getElementById("productDetailOverlay");
+    const productDetailBody = document.getElementById("productDetailBody");
     const loginBox = document.getElementById("loginBox");
     const adminPanel = document.getElementById("adminPanel");
     const imageInput = document.getElementById("imageInput");
@@ -1578,10 +1754,65 @@
           <div class="installment">Parcelamento em até 18x</div>
           ${product.sold
             ? `<button class="btn btn-secondary" disabled>Produto vendido</button>`
-            : `<a class="btn btn-primary" href="${buildWhatsAppLink(product.name)}" target="_blank" onclick="registerClick('${product.id}')">Tenho interesse</a>`
+            : `<button class="btn btn-primary" onclick="openProductDetail('${product.id}')">Ver detalhes</button>`
           }
         </article>
       `).join("");
+    }
+
+    function openProductDetail(productId) {
+      const selectedProduct = products.find(product => product.id === productId);
+      if (!selectedProduct) return;
+
+      products = products.map(product => product.id === productId
+        ? { ...product, views: (product.views || 0) + 1 }
+        : product
+      );
+      saveProducts(products);
+
+      const product = products.find(item => item.id === productId);
+      const imageMarkup = product.image
+        ? `<img src="${product.image}" alt="${product.name}">`
+        : `<img class="logo-fallback" src="logo-principal.png" alt="CK iPHONES">`;
+
+      productDetailBody.innerHTML = `
+        <div class="detail-image">${imageMarkup}</div>
+        <div class="detail-info">
+          <div class="detail-tag">${product.categoryLabel || getCategoryLabel(product.category)} • ${product.productType || "Semi-novo"}</div>
+          <h2>${product.name}</h2>
+          <div class="detail-price">${product.price}</div>
+          <div class="detail-installment">Parcelamento em até 18x</div>
+
+          <div class="detail-spec-grid">
+            <div class="detail-spec"><span>Bateria</span><strong>${product.battery || "Consultar"}</strong></div>
+            <div class="detail-spec"><span>Cor</span><strong>${product.color || "Consultar"}</strong></div>
+            <div class="detail-spec"><span>Garantia</span><strong>${product.warranty || "Consultar"}</strong></div>
+            <div class="detail-spec"><span>Troca</span><strong>${product.acceptTrade || "Sob análise"}</strong></div>
+          </div>
+
+          <div class="detail-note">
+            <strong>Observações:</strong><br>
+            ${product.replacedParts || "Sem observações adicionais."}
+          </div>
+
+          <div class="detail-actions">
+            ${product.sold
+              ? `<button class="btn btn-secondary" disabled>Produto vendido</button>`
+              : `<a class="btn btn-primary" href="${buildWhatsAppLink(product.name)}" target="_blank" onclick="registerClick('${product.id}')">Tenho interesse no WhatsApp</a>`
+            }
+            <button class="btn btn-secondary" onclick="closeProductDetail()">Voltar ao catálogo</button>
+          </div>
+
+          <div class="detail-metrics">${product.views || 0} visualizações deste produto • ${product.clicks || 0} cliques no WhatsApp</div>
+        </div>
+      `;
+
+      productDetailOverlay.classList.add("open");
+      renderAdminList();
+    }
+
+    function closeProductDetail() {
+      productDetailOverlay.classList.remove("open");
     }
 
     function registerClick(productId) {
@@ -1698,12 +1929,13 @@
       renderAdminList();
     }
 
-    function resetClicks(productId) {
+    function resetMetrics(productId) {
       products = products.map(product => product.id === productId
-        ? { ...product, clicks: 0 }
+        ? { ...product, clicks: 0, views: 0 }
         : product
       );
       saveProducts(products);
+      renderProducts(currentFilter);
       renderAdminList();
     }
 
@@ -1711,13 +1943,16 @@
       const adminList = document.getElementById("adminList");
       const totalProducts = document.getElementById("totalProducts");
       const totalSold = document.getElementById("totalSold");
+      const totalViews = document.getElementById("totalViews");
       const totalClicks = document.getElementById("totalClicks");
 
-      if (!adminList || !totalProducts || !totalSold || !totalClicks) return;
+      if (!adminList || !totalProducts || !totalSold || !totalViews || !totalClicks) return;
 
       const clicks = products.reduce((sum, product) => sum + (product.clicks || 0), 0);
+      const views = products.reduce((sum, product) => sum + (product.views || 0), 0);
       totalProducts.textContent = products.length;
       totalSold.textContent = products.filter(product => product.sold).length;
+      totalViews.textContent = views;
       totalClicks.textContent = clicks;
 
       if (products.length === 0) {
@@ -1725,7 +1960,7 @@
         return;
       }
 
-      const sortedProducts = [...products].sort((a, b) => (b.clicks || 0) - (a.clicks || 0));
+      const sortedProducts = [...products].sort((a, b) => (b.views || 0) - (a.views || 0));
 
       adminList.innerHTML = sortedProducts.map(product => `
         <div class="admin-item">
@@ -1736,14 +1971,15 @@
             <h4>${product.name}</h4>
             <div class="admin-meta">
               ${product.price} • ${product.categoryLabel || getCategoryLabel(product.category)} • ${product.productType || "Semi-novo"} • ${product.sold ? "Vendido" : "Disponível"}<br>
-              Cliques: <strong>${product.clicks || 0}</strong><br>
+              Visualizações: <strong>${product.views || 0}</strong> • WhatsApp: <strong>${product.clicks || 0}</strong><br>
               Bateria: ${product.battery || "Consultar"} • Troca: ${product.acceptTrade || "Sob análise"}
             </div>
             <div class="small-actions">
               <button class="btn ${product.sold ? "btn-success" : "btn-secondary"}" onclick="toggleSold('${product.id}')">
                 ${product.sold ? "Voltar disponível" : "Marcar vendido"}
               </button>
-              <button class="btn btn-secondary" onclick="resetClicks('${product.id}')">Zerar cliques</button>
+              <button class="btn btn-secondary" onclick="openProductDetail('${product.id}')">Ver página</button>
+              <button class="btn btn-secondary" onclick="resetMetrics('${product.id}')">Zerar métricas</button>
               <button class="btn btn-danger" onclick="deleteProduct('${product.id}')">Excluir</button>
             </div>
           </div>
@@ -1764,6 +2000,10 @@
 
     adminOverlay.addEventListener("click", event => {
       if (event.target === adminOverlay) closeAdmin();
+    });
+
+    productDetailOverlay.addEventListener("click", event => {
+      if (event.target === productDetailOverlay) closeProductDetail();
     });
 
     document.getElementById("instagramPopup").addEventListener("click", event => {
