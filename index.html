@@ -203,9 +203,9 @@
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: .78fr 1.05fr .78fr;
-      gap: 26px;
-      align-items: center;
+      grid-template-columns: .9fr 1.05fr .9fr;
+      gap: 34px;
+      align-items: end;
       padding: 76px 0 64px;
     }
 
@@ -217,15 +217,16 @@
 
     .hero-character {
       position: relative;
-      min-height: 520px;
+      min-height: 560px;
       display: flex;
       align-items: end;
       justify-content: center;
+      padding-top: 128px;
     }
 
     .character-big {
-      width: min(360px, 100%);
-      height: 460px;
+      width: min(390px, 100%);
+      height: 470px;
       object-fit: contain;
       object-position: bottom center;
       filter: drop-shadow(0 34px 55px rgba(0,0,0,.65)) drop-shadow(0 0 28px rgba(230,171,62,.15));
@@ -238,11 +239,11 @@
 
     .gold-orbit {
       position: absolute;
-      width: 310px;
+      width: 330px;
       height: 74px;
       border-radius: 50%;
       border: 2px solid rgba(230,171,62,.52);
-      bottom: 24px;
+      bottom: 18px;
       left: 50%;
       transform: translateX(-50%) rotate(-7deg);
       box-shadow: 0 0 32px rgba(230,171,62,.32), inset 0 0 22px rgba(230,171,62,.18);
@@ -251,11 +252,11 @@
 
     .speech-bubble {
       position: absolute;
-      top: 76px;
-      max-width: 210px;
+      top: 18px;
+      max-width: 220px;
       padding: 16px 17px;
       border-radius: 22px;
-      background: rgba(0,0,0,.42);
+      background: rgba(0,0,0,.46);
       border: 1px solid rgba(230,171,62,.42);
       color: #fff;
       backdrop-filter: blur(18px);
@@ -1216,10 +1217,13 @@
       .cta,
       .admin-grid,
       .detail-body { grid-template-columns: 1fr; }
-      .hero-character { min-height: 280px; }
-      .character-big { height: 260px; }
-      .speech-bubble { position: relative; top: auto; left: auto !important; right: auto !important; margin-bottom: 10px; max-width: 100%; }
-      .gold-orbit { width: 230px; bottom: 8px; }
+      .hero-center { order: 1; }
+      .hero-character.carlos { order: 2; }
+      .hero-character.karine { order: 3; }
+      .hero-character { min-height: 360px; padding-top: 96px; }
+      .character-big { height: 320px; width: min(320px, 88%); }
+      .speech-bubble { top: 10px; left: 50% !important; right: auto !important; transform: translateX(-50%); max-width: min(320px, 92%); text-align: left; }
+      .gold-orbit { width: 260px; bottom: 8px; }
       .detail-image { min-height: 380px; }
       .products-grid,
       .benefits { grid-template-columns: repeat(2,1fr); }
@@ -1240,7 +1244,12 @@
       .detail-image { min-height: 300px; border-radius: 22px; }
       .detail-modal { border-radius: 24px; }
       .hero { min-height: auto; }
-      .hero-content { padding: 54px 0; }
+      .hero-content { padding: 48px 0 58px; gap: 18px; }
+      .hero-character { min-height: 330px; padding-top: 86px; }
+      .character-big { height: 290px; width: min(300px, 92%); }
+      .speech-bubble { top: 0; padding: 13px 15px; border-radius: 18px; }
+      .speech-bubble p { font-size: .95rem; }
+      .gold-orbit { width: 250px; height: 58px; bottom: 4px; }
       .hero-card { min-height: 390px; }
       .hero-logo-box { width: 218px; height: 218px; }
       .section-title { align-items: start; flex-direction: column; }
