@@ -1315,6 +1315,22 @@
     </div>
   </div>
 
+  <div class="popup-overlay" id="leadPopup">
+    <div class="instagram-popup">
+      <div class="ig-icon">👋</div>
+      <h2>Veio pelo Instagram?</h2>
+      <p>Deixe seu @ para atendimento prioritário da CK iPHONES. Assim conseguimos te chamar com mais agilidade.</p>
+      <div class="form-group" style="text-align:left;margin-bottom:12px;">
+        <label>Seu @ do Instagram</label>
+        <input id="instagramLeadInput" placeholder="Ex: @seuusuario" />
+      </div>
+      <div class="popup-actions">
+        <button class="btn btn-primary" onclick="saveInstagramLead()">Salvar meu @</button>
+        <button class="btn btn-secondary" onclick="closeLeadPopup()">Agora não</button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="adminOverlay">
     <div class="admin-modal">
       <div class="admin-header">
@@ -1437,16 +1453,50 @@
 
             <div class="admin-list" id="adminList"></div>
           </div>
+
+          <div class="admin-card" style="grid-column:1/-1;">
+            <h3>Leads e visitantes</h3>
+            <p class="notice">Aqui aparecem visitantes que deixaram o @ do Instagram e eventos principais do site. O @ não pode ser capturado automaticamente pelo Instagram; a pessoa precisa preencher.</p>
+            <div class="admin-list" id="leadsList"></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      doc,
+      getDocs,
+      setDoc,
+      addDoc,
+      updateDoc,
+      increment,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCq8UOpyNnNRGhvtKTWfxs037sLDSMk7v8",
+      authDomain: "ck-iphones.firebaseapp.com",
+      projectId: "ck-iphones",
+      storageBucket: "ck-iphones.firebasestorage.app",
+      messagingSenderId: "899699618463",
+      appId: "1:899699618463:web:9781dad730010853c1e8aa",
+      measurementId: "G-K313V0WZ7J"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
     const whatsappNumber = "5547991151498";
     const adminPassword = "ckadmin123";
     let selectedImageBase64 = "";
     let currentFilter = "todos";
+    let products = [];
+    let firebaseOnline = true;
 
     const defaultProducts = [
       {
@@ -1505,6 +1555,19 @@
       }
     ];
 
+    const productsGrid = document.getElementById("productsGrid");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const adminOverlay = document.getElementById("adminOverlay");
+    const productDetailOverlay = document.getElementById("productDetailOverlay");
+    const productDetailBody = document.getElementById("productDetailBody");
+    const loginBox = document.getElementById("loginBox");
+    const adminPanel = document.getElementById("adminPanel");
+    const imageInput = document.getElementById("imageInput");
+    const imagePreview = document.getElementById("imagePreview");
+    const productForm = document.getElementById("productForm");
+    const supportCard = document.getElementById("supportCard");
+    const leadPopup = document.getElementById("leadPopup");
+
     function makeId(text) {
       return String(text || "produto")
         .toLowerCase()
@@ -1512,6 +1575,43 @@
         .replace(/[̀-ͯ]/g, "")
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/(^-|-$)/g, "") + "-" + Date.now();
+    }
+
+    function getSessionId() {
+      let id = localStorage.getItem("ckVisitorId");
+      if (!id) {
+        id = "visitor-" + Date.now() + "-" + Math.random().toString(36).slice(2);
+        localStorage.setItem("ckVisitorId", id);
+      }
+      return id;
+    }
+
+    function detectSource() {
+      const params = new URLSearchParams(window.location.search);
+      const utm = params.get("utm_source") || params.get("source") || params.get("ref");
+      const referrer = document.referrer || "";
+      const text = `${utm || ""} ${referrer}`.toLowerCase();
+      if (text.includes("instagram")) return "Instagram";
+      if (text.includes("whatsapp")) return "WhatsApp";
+      if (text.includes("facebook") || text.includes("meta")) return "Facebook/Meta";
+      if (referrer) return "Referência externa";
+      return "Direto";
+    }
+
+    function getVisitorData(extra = {}) {
+      return {
+        visitorId: getSessionId(),
+        source: detectSource(),
+        referrer: document.referrer || "Direto",
+        page: location.href,
+        path: location.pathname,
+        userAgent: navigator.userAgent,
+        language: navigator.language,
+        screen: `${window.screen.width}x${window.screen.height}`,
+        device: /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ? "Mobile" : "Desktop",
+        updatedAt: serverTimestamp(),
+        ...extra
+      };
     }
 
     function getCategoryLabel(category) {
@@ -1550,48 +1650,6 @@
       return `${battery}%`;
     }
 
-    function loadProducts() {
-      try {
-        const saved = localStorage.getItem("ckProductsPhase2Stable");
-        if (saved) return JSON.parse(saved);
-        localStorage.setItem("ckProductsPhase2Stable", JSON.stringify(defaultProducts));
-        return defaultProducts;
-      } catch (error) {
-        console.error("Erro ao carregar produtos:", error);
-        return defaultProducts;
-      }
-    }
-
-    function saveProducts(productList) {
-      try {
-        localStorage.setItem("ckProductsPhase2Stable", JSON.stringify(productList));
-      } catch (error) {
-        alert("Não foi possível salvar. A imagem pode estar pesada demais. Tente uma imagem menor.");
-        console.error(error);
-      }
-    }
-
-    let products = loadProducts().map(product => ({
-      ...product,
-      id: product.id || makeId(product.name),
-      acceptTrade: product.acceptTrade === "Não aceita troca" ? "Não aceita troca" : "Sob análise",
-      views: product.views || 0,
-      clicks: product.clicks || 0
-    }));
-    saveProducts(products);
-
-    const productsGrid = document.getElementById("productsGrid");
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const adminOverlay = document.getElementById("adminOverlay");
-    const productDetailOverlay = document.getElementById("productDetailOverlay");
-    const productDetailBody = document.getElementById("productDetailBody");
-    const loginBox = document.getElementById("loginBox");
-    const adminPanel = document.getElementById("adminPanel");
-    const imageInput = document.getElementById("imageInput");
-    const imagePreview = document.getElementById("imagePreview");
-    const productForm = document.getElementById("productForm");
-    const supportCard = document.getElementById("supportCard");
-
     function buildWhatsAppLink(productName) {
       const text = `Olá, vim pelo site da CK iPHONES e tenho interesse em: ${productName}. Pode me passar mais detalhes?`;
       return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
@@ -1608,10 +1666,88 @@
       ].filter(Boolean);
     }
 
+    function getConversionRate(product) {
+      const views = product.views || 0;
+      const clicks = product.clicks || 0;
+      if (views === 0) return 0;
+      return (clicks / views) * 100;
+    }
+
+    function formatConversion(product) {
+      return `${getConversionRate(product).toFixed(1).replace(".", ",")}%`;
+    }
+
+    async function trackEvent(type, data = {}) {
+      try {
+        await addDoc(collection(db, "events"), {
+          type,
+          ...getVisitorData(data),
+          createdAt: serverTimestamp()
+        });
+      } catch (error) {
+        console.warn("Evento não salvo:", error);
+      }
+    }
+
+    async function trackVisitor() {
+      try {
+        const visitorRef = doc(db, "visitors", getSessionId());
+        await setDoc(visitorRef, {
+          ...getVisitorData(),
+          visits: increment(1),
+          lastSeenAt: serverTimestamp()
+        }, { merge: true });
+        await trackEvent("site_visit");
+      } catch (error) {
+        console.warn("Visitante não salvo:", error);
+      }
+    }
+
+    async function seedProductsIfEmpty() {
+      const snap = await getDocs(collection(db, "products"));
+      if (!snap.empty) return;
+      await Promise.all(defaultProducts.map(product => setDoc(doc(db, "products", product.id), {
+        ...product,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      })));
+    }
+
+    async function loadProductsFromFirestore() {
+      try {
+        await seedProductsIfEmpty();
+        const snap = await getDocs(collection(db, "products"));
+        products = snap.docs.map(item => ({ id: item.id, ...item.data() }))
+          .map(product => ({
+            ...product,
+            acceptTrade: product.acceptTrade === "Não aceita troca" ? "Não aceita troca" : "Sob análise",
+            views: product.views || 0,
+            clicks: product.clicks || 0,
+            sold: Boolean(product.sold)
+          }))
+          .sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
+        localStorage.setItem("ckProductsFirebaseBackup", JSON.stringify(products));
+        firebaseOnline = true;
+      } catch (error) {
+        firebaseOnline = false;
+        console.error("Erro Firebase, usando backup local:", error);
+        const saved = localStorage.getItem("ckProductsFirebaseBackup");
+        products = saved ? JSON.parse(saved) : defaultProducts;
+      }
+      renderProducts(currentFilter);
+      renderAdminList();
+    }
+
+    async function saveProductToFirestore(product) {
+      await setDoc(doc(db, "products", product.id), {
+        ...product,
+        updatedAt: serverTimestamp()
+      }, { merge: true });
+    }
+
     function renderProducts(filter = "todos") {
       currentFilter = filter;
       const filteredProducts = filter === "todos" ? products : products.filter(product => product.category === filter);
-
       if (!productsGrid) return;
 
       if (filteredProducts.length === 0) {
@@ -1645,15 +1781,20 @@
       `).join("");
     }
 
-    function openProductDetail(productId) {
-      products = products.map(product => product.id === productId
-        ? { ...product, views: (product.views || 0) + 1 }
-        : product
-      );
-      saveProducts(products);
-
+    async function openProductDetail(productId) {
       const product = products.find(item => item.id === productId);
       if (!product || !productDetailBody || !productDetailOverlay) return;
+
+      product.views = (product.views || 0) + 1;
+      renderAdminList();
+      renderProducts(currentFilter);
+
+      try {
+        await updateDoc(doc(db, "products", productId), { views: increment(1), updatedAt: serverTimestamp() });
+        await trackEvent("product_view", { productId, productName: product.name });
+      } catch (error) {
+        console.warn("Visualização não sincronizada:", error);
+      }
 
       const imageMarkup = product.image
         ? `<img src="${product.image}" alt="${product.name}">`
@@ -1692,20 +1833,24 @@
       `;
 
       productDetailOverlay.classList.add("open");
-      renderAdminList();
     }
 
     function closeProductDetail() {
       if (productDetailOverlay) productDetailOverlay.classList.remove("open");
     }
 
-    function registerClick(productId) {
-      products = products.map(product => product.id === productId
-        ? { ...product, clicks: (product.clicks || 0) + 1 }
-        : product
-      );
-      saveProducts(products);
+    async function registerClick(productId) {
+      const product = products.find(item => item.id === productId);
+      if (!product) return;
+      product.clicks = (product.clicks || 0) + 1;
       renderAdminList();
+
+      try {
+        await updateDoc(doc(db, "products", productId), { clicks: increment(1), updatedAt: serverTimestamp() });
+        await trackEvent("whatsapp_click", { productId, productName: product.name });
+      } catch (error) {
+        console.warn("Clique não sincronizado:", error);
+      }
     }
 
     filterButtons.forEach(button => {
@@ -1719,6 +1864,7 @@
     function openAdmin() {
       if (adminOverlay) adminOverlay.classList.add("open");
       renderAdminList();
+      renderLeadsList();
     }
 
     function closeAdmin() {
@@ -1731,6 +1877,7 @@
         loginBox.style.display = "none";
         adminPanel.classList.add("active");
         renderAdminList();
+        renderLeadsList();
       } else {
         alert("Senha incorreta.");
       }
@@ -1750,12 +1897,54 @@
       if (supportCard) supportCard.classList.toggle("open");
     }
 
+    function maybeShowLeadPopup() {
+      const alreadyHandled = localStorage.getItem("ckLeadPopupHandled");
+      if (alreadyHandled) return;
+      if (detectSource() !== "Instagram") return;
+      setTimeout(() => {
+        if (leadPopup) leadPopup.classList.add("open");
+      }, 1800);
+    }
+
+    function closeLeadPopup() {
+      localStorage.setItem("ckLeadPopupHandled", "true");
+      if (leadPopup) leadPopup.classList.remove("open");
+    }
+
+    async function saveInstagramLead() {
+      const input = document.getElementById("instagramLeadInput");
+      const instagram = String(input?.value || "").trim();
+      if (!instagram) {
+        alert("Digite seu @ do Instagram para salvar.");
+        return;
+      }
+
+      const cleanInstagram = instagram.startsWith("@") ? instagram : `@${instagram}`;
+
+      try {
+        await addDoc(collection(db, "leads"), {
+          instagram: cleanInstagram,
+          status: "novo",
+          ...getVisitorData({ sourceDetail: "lead_popup" }),
+          createdAt: serverTimestamp()
+        });
+        await trackEvent("lead_instagram", { instagram: cleanInstagram });
+        localStorage.setItem("ckLeadPopupHandled", "true");
+        alert("Perfeito! Seu @ foi salvo para atendimento prioritário.");
+        if (leadPopup) leadPopup.classList.remove("open");
+        renderLeadsList();
+      } catch (error) {
+        alert("Não consegui salvar agora. Tente novamente em instantes.");
+        console.error(error);
+      }
+    }
+
     imageInput.addEventListener("change", event => {
       const file = event.target.files[0];
       if (!file) return;
 
-      if (file.size > 900000) {
-        alert("Essa imagem está pesada. Para evitar travar o site, use uma imagem menor ou print comprimido.");
+      if (file.size > 500000) {
+        alert("Essa imagem está pesada para salvar no Firestore. Use uma imagem menor que 500 KB por enquanto.");
         imageInput.value = "";
         return;
       }
@@ -1768,7 +1957,7 @@
       reader.readAsDataURL(file);
     });
 
-    productForm.addEventListener("submit", event => {
+    productForm.addEventListener("submit", async event => {
       event.preventDefault();
       const category = document.getElementById("category").value;
       const productName = document.getElementById("name").value.trim();
@@ -1792,12 +1981,21 @@
         createdAt: new Date().toISOString()
       };
 
-      products.unshift(newProduct);
-      saveProducts(products);
-      resetForm();
-      renderProducts(currentFilter);
-      renderAdminList();
-      alert("Item cadastrado no catálogo.");
+      try {
+        await setDoc(doc(db, "products", newProduct.id), {
+          ...newProduct,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+        products.unshift(newProduct);
+        resetForm();
+        renderProducts(currentFilter);
+        renderAdminList();
+        alert("Item cadastrado online no catálogo.");
+      } catch (error) {
+        alert("Erro ao salvar no Firebase. Confira se o Firestore está em modo teste.");
+        console.error(error);
+      }
     });
 
     function resetForm() {
@@ -1806,43 +2004,51 @@
       imagePreview.innerHTML = "Prévia da imagem";
     }
 
-    function toggleSold(productId) {
-      products = products.map(product => product.id === productId
-        ? { ...product, sold: !product.sold }
-        : product
-      );
-      saveProducts(products);
+    async function toggleSold(productId) {
+      const product = products.find(item => item.id === productId);
+      if (!product) return;
+      product.sold = !product.sold;
       renderProducts(currentFilter);
       renderAdminList();
+      try {
+        await updateDoc(doc(db, "products", productId), { sold: product.sold, updatedAt: serverTimestamp() });
+      } catch (error) {
+        alert("Não consegui atualizar o status no Firebase.");
+        console.error(error);
+      }
     }
 
-    function deleteProduct(productId) {
+    async function deleteProduct(productId) {
       if (!confirm("Tem certeza que deseja excluir este item do catálogo?")) return;
-      products = products.filter(product => product.id !== productId);
-      saveProducts(products);
+      const product = products.find(item => item.id === productId);
+      products = products.filter(item => item.id !== productId);
       renderProducts(currentFilter);
       renderAdminList();
+      try {
+        await updateDoc(doc(db, "products", productId), {
+          sold: true,
+          deleted: true,
+          deletedAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+        await trackEvent("product_deleted", { productId, productName: product?.name || "Produto" });
+      } catch (error) {
+        console.warn("Produto removido da tela, mas não sincronizado:", error);
+      }
     }
 
-    function resetMetrics(productId) {
-      products = products.map(product => product.id === productId
-        ? { ...product, clicks: 0, views: 0 }
-        : product
-      );
-      saveProducts(products);
+    async function resetMetrics(productId) {
+      const product = products.find(item => item.id === productId);
+      if (!product) return;
+      product.clicks = 0;
+      product.views = 0;
       renderProducts(currentFilter);
       renderAdminList();
-    }
-
-    function getConversionRate(product) {
-      const views = product.views || 0;
-      const clicks = product.clicks || 0;
-      if (views === 0) return 0;
-      return (clicks / views) * 100;
-    }
-
-    function formatConversion(product) {
-      return `${getConversionRate(product).toFixed(1).replace(".", ",")}%`;
+      try {
+        await updateDoc(doc(db, "products", productId), { clicks: 0, views: 0, updatedAt: serverTimestamp() });
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     function renderAdminList() {
@@ -1858,15 +2064,16 @@
 
       if (!adminList || !totalProducts || !totalSold || !totalViews || !totalClicks) return;
 
-      const clicks = products.reduce((sum, product) => sum + (product.clicks || 0), 0);
-      const views = products.reduce((sum, product) => sum + (product.views || 0), 0);
-      totalProducts.textContent = products.length;
-      totalSold.textContent = products.filter(product => product.sold).length;
+      const activeProducts = products.filter(product => !product.deleted);
+      const clicks = activeProducts.reduce((sum, product) => sum + (product.clicks || 0), 0);
+      const views = activeProducts.reduce((sum, product) => sum + (product.views || 0), 0);
+      totalProducts.textContent = activeProducts.length;
+      totalSold.textContent = activeProducts.filter(product => product.sold).length;
       totalViews.textContent = views;
       totalClicks.textContent = clicks;
 
-      const mostViewed = [...products].sort((a, b) => (b.views || 0) - (a.views || 0))[0];
-      const bestConversion = [...products]
+      const mostViewed = [...activeProducts].sort((a, b) => (b.views || 0) - (a.views || 0))[0];
+      const bestConversion = [...activeProducts]
         .filter(product => (product.views || 0) > 0)
         .sort((a, b) => getConversionRate(b) - getConversionRate(a))[0];
 
@@ -1880,12 +2087,12 @@
         bestConversionMeta.textContent = bestConversion ? `${formatConversion(bestConversion)} de conversão • ${bestConversion.clicks || 0}/${bestConversion.views || 0}` : "0% de conversão";
       }
 
-      if (products.length === 0) {
+      if (activeProducts.length === 0) {
         adminList.innerHTML = `<p style="color:#aaa;">Nenhum produto cadastrado ainda.</p>`;
         return;
       }
 
-      const sortedProducts = [...products].sort((a, b) => (b.views || 0) - (a.views || 0));
+      const sortedProducts = [...activeProducts].sort((a, b) => (b.views || 0) - (a.views || 0));
 
       adminList.innerHTML = sortedProducts.map(product => `
         <div class="admin-item">
@@ -1913,6 +2120,58 @@
       `).join("");
     }
 
+    async function renderLeadsList() {
+      const leadsList = document.getElementById("leadsList");
+      if (!leadsList) return;
+      leadsList.innerHTML = `<p style="color:#aaa;">Carregando leads...</p>`;
+
+      try {
+        const [leadsSnap, eventsSnap] = await Promise.all([
+          getDocs(collection(db, "leads")),
+          getDocs(collection(db, "events"))
+        ]);
+
+        const leads = leadsSnap.docs.map(item => ({ id: item.id, ...item.data(), kind: "lead" }));
+        const events = eventsSnap.docs.map(item => ({ id: item.id, ...item.data(), kind: "event" }));
+        const mixed = [...leads, ...events]
+          .sort((a, b) => {
+            const aTime = a.createdAt?.seconds || 0;
+            const bTime = b.createdAt?.seconds || 0;
+            return bTime - aTime;
+          })
+          .slice(0, 30);
+
+        if (mixed.length === 0) {
+          leadsList.innerHTML = `<p style="color:#aaa;">Nenhum lead ou evento registrado ainda.</p>`;
+          return;
+        }
+
+        leadsList.innerHTML = mixed.map(item => {
+          const isLead = item.kind === "lead";
+          const title = isLead ? (item.instagram || "Lead sem @") : `Evento: ${item.type || "acesso"}`;
+          const meta = isLead
+            ? `Origem: ${item.source || "Não identificada"} • Dispositivo: ${item.device || "-"}`
+            : `Produto: ${item.productName || "-"} • Origem: ${item.source || "-"}`;
+          return `
+            <div class="admin-item">
+              <div class="admin-thumb" style="display:grid;place-items:center;font-size:1.5rem;">${isLead ? "📸" : "📊"}</div>
+              <div>
+                <h4>${title}</h4>
+                <div class="admin-meta">
+                  ${meta}<br>
+                  Página: ${item.path || "/"}<br>
+                  Visitante: ${item.visitorId || "-"}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join("");
+      } catch (error) {
+        leadsList.innerHTML = `<p style="color:#ffb3b3;">Erro ao carregar leads. Verifique as regras do Firestore.</p>`;
+        console.error(error);
+      }
+    }
+
     if (adminOverlay) {
       adminOverlay.addEventListener("click", event => {
         if (event.target === adminOverlay) closeAdmin();
@@ -1932,7 +2191,31 @@
       });
     }
 
+    if (leadPopup) {
+      leadPopup.addEventListener("click", event => {
+        if (event.target.id === "leadPopup") closeLeadPopup();
+      });
+    }
+
+    window.openProductDetail = openProductDetail;
+    window.closeProductDetail = closeProductDetail;
+    window.registerClick = registerClick;
+    window.openAdmin = openAdmin;
+    window.closeAdmin = closeAdmin;
+    window.loginAdmin = loginAdmin;
+    window.openInstagramPopup = openInstagramPopup;
+    window.closeInstagramPopup = closeInstagramPopup;
+    window.toggleSupport = toggleSupport;
+    window.toggleSold = toggleSold;
+    window.deleteProduct = deleteProduct;
+    window.resetMetrics = resetMetrics;
+    window.saveInstagramLead = saveInstagramLead;
+    window.closeLeadPopup = closeLeadPopup;
+
     renderProducts();
+    loadProductsFromFirestore();
+    trackVisitor();
+    maybeShowLeadPopup();
   </script>
 </body>
 </html>
