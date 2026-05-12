@@ -2101,8 +2101,7 @@
         warranty: document.getElementById("warranty").value.trim() || "Consultar",
         acceptTrade: document.getElementById("acceptTrade").value,
         replacedParts: document.getElementById("replacedParts").value.trim(),
-        image: selectedImageBase64 || document.getElementById("imageUrl")?.value.trim() || "
-        sold: false,
+        image: selectedImageBase64 || document.getElementById("imageUrl")?.value.trim() || "",sold: false,
         clicks: 0,
         views: 0,
         createdAt: new Date().toISOString()
