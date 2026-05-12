@@ -15,7 +15,7 @@
 
     :root {
       --bg: #050505;
-      --card: rgba(17, 17, 19, 0.82);
+      --card: rgba(17, 17, 19, 0.88);
       --text: #f5f5f7;
       --muted: #aaa;
       --soft: #d1d1d6;
@@ -26,47 +26,31 @@
       --black: #000000;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       min-height: 100vh;
-      background: var(--bg);
+      background:
+        radial-gradient(circle at 16% 16%, rgba(255,255,255,.10), transparent 28%),
+        radial-gradient(circle at 82% 18%, rgba(92,118,255,.23), transparent 30%),
+        radial-gradient(circle at 50% 88%, rgba(255,255,255,.07), transparent 26%),
+        linear-gradient(180deg, #080808 0%, #020202 100%);
       color: var(--text);
       overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -3;
-      background:
-        radial-gradient(circle at 16% 16%, rgba(255, 255, 255, 0.11), transparent 28%),
-        radial-gradient(circle at 82% 18%, rgba(92, 118, 255, 0.25), transparent 30%),
-        radial-gradient(circle at 50% 88%, rgba(255, 255, 255, 0.08), transparent 26%),
-        linear-gradient(180deg, #080808 0%, #020202 100%);
-      animation: ambientMove 11s ease-in-out infinite alternate;
     }
 
     body::after {
       content: "";
       position: fixed;
       inset: 0;
-      z-index: -2;
-      opacity: 0.18;
+      z-index: -1;
+      opacity: .14;
       background-image:
         linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
       background-size: 72px 72px;
       mask-image: radial-gradient(circle at center, black, transparent 74%);
       pointer-events: none;
-    }
-
-    @keyframes ambientMove {
-      0% { filter: hue-rotate(0deg); transform: scale(1); }
-      100% { filter: hue-rotate(8deg); transform: scale(1.04); }
     }
 
     a { color: inherit; text-decoration: none; }
@@ -77,69 +61,13 @@
       margin: 0 auto;
     }
 
-    .loader {
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      background: #050505;
-      display: grid;
-      place-items: center;
-      transition: opacity .75s ease, visibility .75s ease;
-    }
-
-    .loader.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .loader-card {
-      text-align: center;
-      display: grid;
-      gap: 14px;
-      place-items: center;
-      animation: loaderPulse 1.8s ease-in-out infinite;
-    }
-
-    .loader-logo {
-      width: 92px;
-      height: 92px;
-      border-radius: 28px;
-      background: #fff;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      box-shadow: 0 0 80px rgba(255,255,255,.18);
-    }
-
-    .loader-logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 6px;
-    }
-
-    .loader-card strong {
-      font-size: 1.25rem;
-      letter-spacing: -.5px;
-    }
-
-    .loader-card span {
-      color: #aaa;
-      font-size: .88rem;
-    }
-
-    @keyframes loaderPulse {
-      0%, 100% { transform: translateY(0); opacity: 1; }
-      50% { transform: translateY(-8px); opacity: .84; }
-    }
-
     header {
       position: sticky;
       top: 0;
       z-index: 40;
-      background: rgba(5, 5, 5, 0.68);
-      backdrop-filter: blur(22px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(5,5,5,.72);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
       box-shadow: 0 20px 60px rgba(0,0,0,.18);
     }
 
@@ -168,6 +96,7 @@
       overflow: hidden;
       border: 1px solid rgba(255,255,255,.14);
       box-shadow: 0 12px 34px rgba(255,255,255,.08);
+      flex: 0 0 auto;
     }
 
     .brand-logo img {
@@ -229,7 +158,6 @@
       border-radius: 999px;
       font-weight: 850;
       transition: .25s;
-      box-shadow: 0 0 0 rgba(255,255,255,0);
     }
 
     .whatsapp-top:hover {
@@ -238,65 +166,125 @@
     }
 
     .hero {
-      min-height: 82vh;
+      min-height: 88vh;
       display: grid;
       align-items: center;
       overflow: hidden;
       position: relative;
+      border-bottom: 1px solid rgba(255,255,255,.06);
     }
 
     .hero::before {
       content: "";
       position: absolute;
-      width: 560px;
-      height: 560px;
-      border-radius: 50%;
-      right: -190px;
-      top: 70px;
-      background: radial-gradient(circle, rgba(255,255,255,.18), rgba(92,118,255,.18), transparent 65%);
-      filter: blur(2px);
-      animation: floatLight 7s ease-in-out infinite alternate;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 58%, rgba(230,171,62,.18), transparent 24%),
+        radial-gradient(circle at 82% 58%, rgba(230,171,62,.18), transparent 24%),
+        radial-gradient(circle at 50% 20%, rgba(255,255,255,.08), transparent 30%);
       pointer-events: none;
     }
 
-    .hero::after {
-      content: "";
+    .hero-gold-line {
       position: absolute;
-      width: 420px;
-      height: 420px;
+      width: 280px;
+      height: 280px;
       border-radius: 50%;
-      left: -160px;
-      bottom: -160px;
-      background: radial-gradient(circle, rgba(255,255,255,.12), transparent 65%);
-      animation: floatLight 8s ease-in-out infinite alternate-reverse;
+      border: 1px solid rgba(230,171,62,.25);
+      filter: blur(.2px);
+      opacity: .45;
       pointer-events: none;
     }
 
-    @keyframes floatLight {
-      from { transform: translate3d(0,0,0) scale(1); opacity: .7; }
-      to { transform: translate3d(-35px,25px,0) scale(1.08); opacity: 1; }
-    }
+    .hero-gold-line.left { left: 4%; bottom: 12%; }
+    .hero-gold-line.right { right: 4%; bottom: 12%; }
 
     .hero-content {
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 44px;
-      align-items: center;
-      padding: 88px 0;
+      grid-template-columns: .9fr 1.05fr .9fr;
+      gap: 34px;
+      align-items: end;
+      padding: 76px 0 64px;
     }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .8s ease, transform .8s ease;
+    .hero-center {
+      text-align: center;
+      display: grid;
+      justify-items: center;
     }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .hero-character {
+      position: relative;
+      min-height: 560px;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      padding-top: 128px;
     }
+
+    .character-big {
+      width: min(390px, 100%);
+      height: 470px;
+      object-fit: contain;
+      object-position: bottom center;
+      filter: drop-shadow(0 34px 55px rgba(0,0,0,.65)) drop-shadow(0 0 28px rgba(230,171,62,.15));
+      animation: premiumFloat 5s ease-in-out infinite;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-character.karine .character-big { animation-delay: .7s; }
+
+    .gold-orbit {
+      position: absolute;
+      width: 330px;
+      height: 74px;
+      border-radius: 50%;
+      border: 2px solid rgba(230,171,62,.52);
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-7deg);
+      box-shadow: 0 0 32px rgba(230,171,62,.32), inset 0 0 22px rgba(230,171,62,.18);
+      z-index: 1;
+    }
+
+    .speech-bubble {
+      position: absolute;
+      top: 18px;
+      max-width: 220px;
+      padding: 16px 17px;
+      border-radius: 22px;
+      background: rgba(0,0,0,.46);
+      border: 1px solid rgba(230,171,62,.42);
+      color: #fff;
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 45px rgba(0,0,0,.35), 0 0 28px rgba(230,171,62,.10);
+      z-index: 4;
+    }
+
+    .hero-character.carlos .speech-bubble { left: 0; }
+    .hero-character.karine .speech-bubble { right: 0; border-color: rgba(255,120,230,.36); }
+
+    .speech-bubble strong {
+      color: #e6ab3e;
+      font-size: 1.28rem;
+    }
+
+    .speech-bubble p {
+      margin: 0;
+      color: #fff;
+      font-size: 1.02rem;
+      line-height: 1.38;
+    }
+
+    @keyframes premiumFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    
 
     .badge {
       display: inline-flex;
@@ -325,12 +313,6 @@
       background-clip: text;
       color: transparent;
       background-size: 220% auto;
-      animation: shineText 5s ease-in-out infinite;
-    }
-
-    @keyframes shineText {
-      0%, 100% { background-position: 0% center; }
-      50% { background-position: 100% center; }
     }
 
     .hero p {
@@ -363,20 +345,6 @@
       overflow: hidden;
     }
 
-    .btn::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 60%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
-      transform: skewX(-18deg);
-      transition: left .55s ease;
-      pointer-events: none;
-    }
-
-    .btn:hover::before { left: 130%; }
     .btn:hover { transform: translateY(-3px); }
     .btn-primary { background: #fff; color: #000; box-shadow: 0 16px 40px rgba(255,255,255,.10); }
     .btn-primary:hover { box-shadow: 0 20px 52px rgba(255,255,255,.18); }
@@ -397,7 +365,6 @@
       position: relative;
       overflow: hidden;
       box-shadow: 0 34px 100px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.09);
-      transform-style: preserve-3d;
     }
 
     .hero-card::before {
@@ -406,12 +373,6 @@
       inset: -40%;
       background: radial-gradient(circle, rgba(255,255,255,.16), transparent 45%);
       transform: rotate(20deg);
-      animation: cardGlow 7s ease-in-out infinite alternate;
-    }
-
-    @keyframes cardGlow {
-      from { transform: rotate(20deg) translateX(-30px); opacity: .55; }
-      to { transform: rotate(20deg) translateX(45px); opacity: 1; }
     }
 
     .hero-logo-box {
@@ -426,7 +387,6 @@
       place-items: center;
       overflow: hidden;
       box-shadow: 0 28px 70px rgba(0,0,0,.46), 0 0 80px rgba(255,255,255,.08);
-      animation: logoFloat 5.5s ease-in-out infinite;
     }
 
     .hero-logo-box img {
@@ -434,11 +394,6 @@
       height: 100%;
       object-fit: contain;
       padding: 10px;
-    }
-
-    @keyframes logoFloat {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-12px) rotate(-1deg); }
     }
 
     .hero-card-info {
@@ -527,16 +482,6 @@
       box-shadow: 0 20px 58px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.07);
     }
 
-    .product-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 0%, rgba(255,255,255,.12), transparent 38%);
-      opacity: 0;
-      transition: .25s;
-      pointer-events: none;
-    }
-
     .product-card.sold { opacity: .55; }
 
     .sold-ribbon {
@@ -558,8 +503,6 @@
       box-shadow: 0 30px 84px rgba(0,0,0,.50), inset 0 1px 0 rgba(255,255,255,.12);
     }
 
-    .product-card:hover::before { opacity: 1; }
-
     .product-image {
       height: 260px;
       border-radius: 25px;
@@ -575,15 +518,6 @@
       position: relative;
     }
 
-    .product-image::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(130deg, rgba(255,255,255,.16), transparent 28%, transparent 68%, rgba(255,255,255,.07));
-      opacity: .35;
-      pointer-events: none;
-    }
-
     .product-image img {
       width: 100%;
       height: 100%;
@@ -591,7 +525,7 @@
       transition: transform .35s ease;
     }
 
-    .product-card:hover .product-image img { transform: scale(1.045); }
+    .product-card:hover .product-image img { transform: scale(1.04); }
 
     .product-category {
       color: #8ea2ff;
@@ -688,23 +622,6 @@
       overflow: hidden;
     }
 
-    .cta::before {
-      content: "";
-      position: absolute;
-      width: 280px;
-      height: 280px;
-      border-radius: 50%;
-      right: -70px;
-      top: -80px;
-      background: rgba(255,255,255,.46);
-      filter: blur(8px);
-    }
-
-    .cta > * {
-      position: relative;
-      z-index: 1;
-    }
-
     .cta h2 {
       font-size: clamp(2rem,4vw,4rem);
       letter-spacing: -2px;
@@ -767,14 +684,6 @@
       box-shadow: 0 16px 44px rgba(0,0,0,.45);
       cursor: pointer;
       transition: .25s;
-      animation: supportPulse 2.6s ease-in-out infinite;
-    }
-
-    .float-btn:nth-child(2) { animation-delay: .8s; }
-
-    @keyframes supportPulse {
-      0%, 100% { box-shadow: 0 16px 44px rgba(0,0,0,.45), 0 0 0 0 rgba(255,255,255,.18); }
-      50% { box-shadow: 0 16px 44px rgba(0,0,0,.45), 0 0 0 10px rgba(255,255,255,0); }
     }
 
     .float-btn:hover {
@@ -794,15 +703,9 @@
       z-index: 60;
       box-shadow: 0 24px 70px rgba(0,0,0,.55);
       display: none;
-      animation: popIn .24s ease;
     }
 
     .support-card.open { display: block; }
-
-    @keyframes popIn {
-      from { opacity: 0; transform: translateY(16px) scale(.96); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
 
     .support-logo {
       width: 64px;
@@ -852,6 +755,17 @@
     .popup-overlay.open,
     .modal-overlay.open { display: flex; }
 
+    .instagram-popup,
+    .admin-modal,
+    .detail-modal {
+      animation: popIn .22s ease;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(14px) scale(.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
     .instagram-popup {
       width: min(420px,100%);
       background: linear-gradient(145deg,#161618,#080808);
@@ -860,7 +774,6 @@
       padding: 28px;
       text-align: center;
       box-shadow: 0 30px 90px rgba(0,0,0,.65);
-      animation: popIn .24s ease;
     }
 
     .ig-icon {
@@ -870,9 +783,15 @@
       margin: 0 auto 18px;
       display: grid;
       place-items: center;
-      font-size: 2.2rem;
-      background: linear-gradient(145deg,#fff,#bfc7ff);
-      color: #000;
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      color: #fff;
+      box-shadow: 0 18px 45px rgba(214,36,159,.28);
+    }
+
+    .instagram-svg {
+      width: 38px;
+      height: 38px;
+      display: block;
     }
 
     .instagram-popup h2 {
@@ -891,6 +810,148 @@
       gap: 10px;
     }
 
+    .detail-modal {
+      width: min(1120px,100%);
+      max-height: 92vh;
+      overflow: auto;
+      background: linear-gradient(145deg, rgba(18,18,20,.98), rgba(6,6,7,.98));
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 34px;
+      box-shadow: 0 34px 110px rgba(0,0,0,.78);
+    }
+
+    .detail-header {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      background: rgba(14,14,16,.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .detail-header strong {
+      font-size: 1.05rem;
+      letter-spacing: -.3px;
+    }
+
+    .detail-body {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .detail-image {
+      min-height: 520px;
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 50% 25%, rgba(255,255,255,.20), transparent 34%),
+        linear-gradient(145deg,#1d1d1f,#050505);
+      border: 1px solid rgba(255,255,255,.10);
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .detail-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .detail-image img.logo-fallback {
+      object-fit: contain;
+      background: #fff;
+      padding: 32px;
+    }
+
+    .detail-info {
+      display: grid;
+      gap: 18px;
+    }
+
+    .detail-tag {
+      width: fit-content;
+      color: #000;
+      background: #fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: .82rem;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .detail-info h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      letter-spacing: -2px;
+      line-height: .98;
+    }
+
+    .detail-price {
+      font-size: 2rem;
+      font-weight: 950;
+      letter-spacing: -1px;
+    }
+
+    .detail-installment {
+      color: #aaa;
+      margin-top: -10px;
+    }
+
+    .detail-spec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .detail-spec {
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .detail-spec span {
+      display: block;
+      color: #aaa;
+      font-size: .78rem;
+      margin-bottom: 5px;
+    }
+
+    .detail-spec strong {
+      font-size: .98rem;
+    }
+
+    .detail-note {
+      color: #c7c7cc;
+      line-height: 1.55;
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+      padding: 16px;
+    }
+
+    .detail-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .detail-actions .btn { width: 100%; }
+
+    .detail-metrics {
+      color: #aaa;
+      font-size: .88rem;
+      text-align: center;
+    }
+
     .admin-modal {
       width: min(1100px,100%);
       max-height: 92vh;
@@ -899,7 +960,6 @@
       border: 1px solid rgba(255,255,255,.13);
       border-radius: 30px;
       box-shadow: 0 30px 100px rgba(0,0,0,.75);
-      animation: popIn .24s ease;
     }
 
     .admin-header {
@@ -1071,9 +1131,56 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(3,1fr);
+      grid-template-columns: repeat(4,1fr);
       gap: 12px;
       margin-bottom: 14px;
+    }
+
+    .analytics-highlight {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .highlight-box {
+      background: linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.035));
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 20px;
+      padding: 15px;
+    }
+
+    .highlight-box span {
+      display: block;
+      color: #aaa;
+      font-size: .8rem;
+      margin-bottom: 6px;
+    }
+
+    .highlight-box strong {
+      display: block;
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+
+    .highlight-box small {
+      display: block;
+      color: #c7c7cc;
+      margin-top: 6px;
+    }
+
+    .conversion-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.10);
+      font-size: .78rem;
+      font-weight: 850;
+      margin-top: 7px;
     }
 
     .stat-box {
@@ -1108,7 +1215,16 @@
     @media (max-width: 920px) {
       .hero-content,
       .cta,
-      .admin-grid { grid-template-columns: 1fr; }
+      .admin-grid,
+      .detail-body { grid-template-columns: 1fr; }
+      .hero-center { order: 1; }
+      .hero-character.carlos { order: 2; }
+      .hero-character.karine { order: 3; }
+      .hero-character { min-height: 360px; padding-top: 96px; }
+      .character-big { height: 320px; width: min(320px, 88%); }
+      .speech-bubble { top: 10px; left: 50% !important; right: auto !important; transform: translateX(-50%); max-width: min(320px, 92%); text-align: left; }
+      .gold-orbit { width: 260px; bottom: 8px; }
+      .detail-image { min-height: 380px; }
       .products-grid,
       .benefits { grid-template-columns: repeat(2,1fr); }
       .nav-links a:not(.whatsapp-top),
@@ -1121,9 +1237,19 @@
       .products-grid,
       .benefits,
       .form-grid,
-      .stats-grid { grid-template-columns: 1fr; }
+      .stats-grid,
+      .analytics-highlight,
+      .detail-spec-grid { grid-template-columns: 1fr; }
+      .detail-body { padding: 16px; }
+      .detail-image { min-height: 300px; border-radius: 22px; }
+      .detail-modal { border-radius: 24px; }
       .hero { min-height: auto; }
-      .hero-content { padding: 54px 0; }
+      .hero-content { padding: 48px 0 58px; gap: 18px; }
+      .hero-character { min-height: 330px; padding-top: 86px; }
+      .character-big { height: 290px; width: min(300px, 92%); }
+      .speech-bubble { top: 0; padding: 13px 15px; border-radius: 18px; }
+      .speech-bubble p { font-size: .95rem; }
+      .gold-orbit { width: 250px; height: 58px; bottom: 4px; }
       .hero-card { min-height: 390px; }
       .hero-logo-box { width: 218px; height: 218px; }
       .section-title { align-items: start; flex-direction: column; }
@@ -1142,16 +1268,6 @@
 </head>
 
 <body>
-  <div class="loader" id="loader">
-    <div class="loader-card">
-      <div class="loader-logo">
-        <img src="logo-principal.png" alt="CK iPHONES">
-      </div>
-      <strong>CK iPHONES</strong>
-      <span>Carregando catálogo premium...</span>
-    </div>
-  </div>
-
   <header>
     <div class="container navbar">
       <a href="#inicio" class="brand">
@@ -1176,36 +1292,46 @@
 
   <main id="inicio">
     <section class="hero">
+      <div class="hero-gold-line left"></div>
+      <div class="hero-gold-line right"></div>
+
       <div class="container hero-content">
-        <div class="reveal">
-          <div class="badge">Venda, troca e assistência técnica Apple</div>
-          <h1>Seu próximo <span class="gradient-text">iPhone</span> começa aqui.</h1>
+        <div class="hero-character carlos">
+          <div class="speech-bubble">
+            <p>E aí! 👋<br>Eu sou o <strong>Carlos</strong>.<br>Estou aqui para te ajudar.</p>
+          </div>
+          <img class="character-big" src="carlos.png" alt="Carlos CK iPHONES">
+          <div class="gold-orbit"></div>
+        </div>
+
+        <div class="hero-center">
+          <div class="badge">Loja confiável • Atendimento premium</div>
+          <h1>Bem-vindos à <span class="gradient-text">CK iPHONES</span></h1>
           <p>
-            Aparelhos selecionados, semi-novos originais, opções lacradas, garantia, troca sob análise e parcelamento em até 18x. Atendimento direto pelo WhatsApp com a CK iPHONES.
+            Os melhores iPhones com garantia, procedência e parcelamento em até 18x.
           </p>
+
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#catalogo">Ver catálogo</a>
-            <a class="btn btn-secondary" href="https://wa.me/5547991151498?text=Ol%C3%A1%2C%20quero%20atendimento%20da%20CK%20iPHONES." target="_blank">Chamar no WhatsApp</a>
+            <a class="btn btn-primary" href="https://wa.me/5547991151498?text=Ol%C3%A1%2C%20quero%20atendimento%20da%20CK%20iPHONES." target="_blank">Falar no WhatsApp</a>
+            <a class="btn btn-secondary" href="#catalogo">Ver catálogo</a>
           </div>
         </div>
 
-        <div class="hero-card reveal">
-          <div class="hero-logo-box">
-            <img src="logo-principal.png" alt="CK iPHONES">
+        <div class="hero-character karine">
+          <div class="speech-bubble">
+            <p>Olá! 💜<br>Eu sou a <strong>Karine</strong>.<br>Será um prazer te atender.</p>
           </div>
-          <div class="hero-card-info">
-            <h3>CK Selection</h3>
-            <p>Curadoria de aparelhos com procedência, estética e performance.</p>
-          </div>
+          <img class="character-big" src="karine.png" alt="Karine CK iPHONES">
+          <div class="gold-orbit"></div>
         </div>
       </div>
     </section>
 
-    <section id="catalogo" class="reveal">
+    <section id="catalogo">
       <div class="container">
         <div class="section-title">
           <div><h2>Catálogo disponível</h2></div>
-          <p>Escolha uma categoria, veja os detalhes do aparelho e fale direto no WhatsApp para negociar.</p>
+          <p>Escolha uma categoria, abra os detalhes do aparelho e fale direto no WhatsApp para negociar.</p>
         </div>
 
         <div class="filters">
@@ -1220,7 +1346,7 @@
       </div>
     </section>
 
-    <section id="vantagens" class="reveal">
+    <section id="vantagens">
       <div class="container">
         <div class="section-title">
           <h2>Por que comprar com a CK?</h2>
@@ -1252,7 +1378,7 @@
       </div>
     </section>
 
-    <section id="contato" class="reveal">
+    <section id="contato">
       <div class="container">
         <div class="cta">
           <div>
@@ -1274,7 +1400,13 @@
 
   <div class="floating-support">
     <button class="float-btn" onclick="toggleSupport()">💬</button>
-    <button class="float-btn" onclick="openInstagramPopup()">📸</button>
+    <button class="float-btn" onclick="openInstagramPopup()" aria-label="Instagram">
+      <svg class="instagram-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/>
+        <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+        <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+      </svg>
+    </button>
   </div>
 
   <div class="support-card" id="supportCard">
@@ -1288,7 +1420,13 @@
 
   <div class="popup-overlay" id="instagramPopup">
     <div class="instagram-popup">
-      <div class="ig-icon">📸</div>
+      <div class="ig-icon">
+        <svg class="instagram-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/>
+          <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+          <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+        </svg>
+      </div>
       <h2>Siga a CK iPHONES</h2>
       <p>Acompanhe novidades, aparelhos disponíveis, ofertas e bastidores pelo nosso Instagram oficial.</p>
       <div class="popup-actions">
@@ -1298,12 +1436,38 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="productDetailOverlay">
+    <div class="detail-modal">
+      <div class="detail-header">
+        <strong>Detalhes do produto</strong>
+        <button class="btn btn-secondary" onclick="closeProductDetail()">Fechar</button>
+      </div>
+      <div class="detail-body" id="productDetailBody"></div>
+    </div>
+  </div>
+
+  <div class="popup-overlay" id="leadPopup">
+    <div class="instagram-popup">
+      <div class="ig-icon">👋</div>
+      <h2>Veio pelo Instagram?</h2>
+      <p>Deixe seu @ para atendimento prioritário da CK iPHONES. Assim conseguimos te chamar com mais agilidade.</p>
+      <div class="form-group" style="text-align:left;margin-bottom:12px;">
+        <label>Seu @ do Instagram</label>
+        <input id="instagramLeadInput" placeholder="Ex: @seuusuario" />
+      </div>
+      <div class="popup-actions">
+        <button class="btn btn-primary" onclick="saveInstagramLead()">Salvar meu @</button>
+        <button class="btn btn-secondary" onclick="closeLeadPopup()">Agora não</button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="adminOverlay">
     <div class="admin-modal">
       <div class="admin-header">
         <div>
           <h2>Painel Admin CK iPHONES</h2>
-          <p style="color:#aaa; margin-top:6px;">Cadastrar, remover, vender itens e acompanhar cliques.</p>
+          <p style="color:#aaa; margin-top:6px;">Cadastrar, remover, vender itens e acompanhar visualizações reais.</p>
         </div>
         <button class="btn btn-secondary" onclick="closeAdmin()">Fechar</button>
       </div>
@@ -1315,7 +1479,7 @@
             <input type="password" id="adminPassword" placeholder="Digite a senha" />
           </div>
           <button class="btn btn-primary" onclick="loginAdmin()">Entrar</button>
-          <p class="notice">Senha inicial: <strong>ckadmin123</strong>. Nesta versão, o painel salva neste navegador. Depois conectamos banco de dados real.</p>
+          <p class="notice">Área restrita da CK iPHONES. Acesso permitido apenas para administrador.</p>
         </div>
 
         <div class="admin-grid" id="adminPanel">
@@ -1381,8 +1545,9 @@
                 </div>
 
                 <div class="form-group full">
-                  <label>Imagem do produto</label>
-                  <input type="file" id="imageInput" accept="image/*" />
+                  <label>Link da imagem do produto</label>
+                  <input id="imageUrl" placeholder="Cole aqui o Direct Link do ImgBB. Ex: https://i.ibb.co/arquivo.jpg" />
+                  <p style="color:#aaa;font-size:.82rem;line-height:1.4;">Use o link direto da imagem, normalmente começando com https://i.ibb.co/</p>
                   <div class="preview-img" id="imagePreview">Prévia da imagem</div>
                 </div>
               </div>
@@ -1397,28 +1562,77 @@
           </div>
 
           <div class="admin-card">
-            <h3>Painel de produtos e cliques</h3>
+            <h3>Painel de produtos e métricas</h3>
             <div class="stats-grid">
-              <div class="stat-box"><strong id="totalProducts">0</strong><span>Itens cadastrados</span></div>
-              <div class="stat-box"><strong id="totalSold">0</strong><span>Itens vendidos</span></div>
-              <div class="stat-box"><strong id="totalClicks">0</strong><span>Cliques totais</span></div>
+              <div class="stat-box"><strong id="totalProducts">0</strong><span>Itens</span></div>
+              <div class="stat-box"><strong id="totalSold">0</strong><span>Vendidos</span></div>
+              <div class="stat-box"><strong id="totalViews">0</strong><span>Visualizações</span></div>
+              <div class="stat-box"><strong id="totalClicks">0</strong><span>WhatsApp</span></div>
             </div>
+
+            <div class="analytics-highlight">
+              <div class="highlight-box">
+                <span>Produto mais visualizado</span>
+                <strong id="mostViewedProduct">Sem dados ainda</strong>
+                <small id="mostViewedMeta">0 visualizações</small>
+              </div>
+              <div class="highlight-box">
+                <span>Produto com maior intenção</span>
+                <strong id="bestConversionProduct">Sem dados ainda</strong>
+                <small id="bestConversionMeta">0% de conversão</small>
+              </div>
+            </div>
+
             <div class="admin-list" id="adminList"></div>
+          </div>
+
+          <div class="admin-card" style="grid-column:1/-1;">
+            <h3>Leads e visitantes</h3>
+            <p class="notice">Aqui aparecem visitantes que deixaram o @ do Instagram e eventos principais do site. O @ não pode ser capturado automaticamente pelo Instagram; a pessoa precisa preencher.</p>
+            <div class="admin-list" id="leadsList"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      doc,
+      getDocs,
+      setDoc,
+      addDoc,
+      updateDoc,
+      increment,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCq8UOpyNnNRGhvtKTWfxs037sLDSMk7v8",
+      authDomain: "ck-iphones.firebaseapp.com",
+      projectId: "ck-iphones",
+      storageBucket: "ck-iphones.firebasestorage.app",
+      messagingSenderId: "899699618463",
+      appId: "1:899699618463:web:9781dad730010853c1e8aa",
+      measurementId: "G-K313V0WZ7J"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
     const whatsappNumber = "5547991151498";
     const adminPassword = "ckadmin123";
     let selectedImageBase64 = "";
     let currentFilter = "todos";
+    let products = [];
+    let firebaseOnline = true;
 
     const defaultProducts = [
       {
-        id: crypto.randomUUID(),
+        id: "iphone-17-pro-max-256-grey",
         category: "iphone",
         categoryLabel: "iPhone",
         productType: "Lacrado",
@@ -1432,10 +1646,11 @@
         image: "",
         sold: false,
         clicks: 0,
+        views: 0,
         createdAt: new Date().toISOString()
       },
       {
-        id: crypto.randomUUID(),
+        id: "iphone-15-pro-max-256-natural",
         category: "iphone",
         categoryLabel: "iPhone",
         productType: "Semi-novo",
@@ -1449,10 +1664,11 @@
         image: "",
         sold: false,
         clicks: 0,
+        views: 0,
         createdAt: new Date().toISOString()
       },
       {
-        id: crypto.randomUUID(),
+        id: "apple-watch-series-10-gps",
         category: "watch",
         categoryLabel: "Apple Watch",
         productType: "Semi-novo",
@@ -1466,9 +1682,69 @@
         image: "",
         sold: false,
         clicks: 0,
+        views: 0,
         createdAt: new Date().toISOString()
       }
     ];
+
+    const productsGrid = document.getElementById("productsGrid");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const adminOverlay = document.getElementById("adminOverlay");
+    const productDetailOverlay = document.getElementById("productDetailOverlay");
+    const productDetailBody = document.getElementById("productDetailBody");
+    const loginBox = document.getElementById("loginBox");
+    const adminPanel = document.getElementById("adminPanel");
+    const imageUrlInput = document.getElementById("imageUrl");
+    const imagePreview = document.getElementById("imagePreview");
+    const productForm = document.getElementById("productForm");
+    const supportCard = document.getElementById("supportCard");
+    const leadPopup = document.getElementById("leadPopup");
+
+    function makeId(text) {
+      return String(text || "produto")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[̀-ͯ]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "") + "-" + Date.now();
+    }
+
+    function getSessionId() {
+      let id = localStorage.getItem("ckVisitorId");
+      if (!id) {
+        id = "visitor-" + Date.now() + "-" + Math.random().toString(36).slice(2);
+        localStorage.setItem("ckVisitorId", id);
+      }
+      return id;
+    }
+
+    function detectSource() {
+      const params = new URLSearchParams(window.location.search);
+      const utm = params.get("utm_source") || params.get("source") || params.get("ref");
+      const referrer = document.referrer || "";
+      const text = `${utm || ""} ${referrer}`.toLowerCase();
+      if (text.includes("instagram")) return "Instagram";
+      if (text.includes("whatsapp")) return "WhatsApp";
+      if (text.includes("facebook") || text.includes("meta")) return "Facebook/Meta";
+      if (referrer) return "Referência externa";
+      return "Direto";
+    }
+
+    function getVisitorData(extra = {}) {
+      return {
+        visitorId: getSessionId(),
+        source: detectSource(),
+        referrer: document.referrer || "Direto",
+        page: location.href,
+        path: location.pathname,
+        userAgent: navigator.userAgent,
+        language: navigator.language,
+        screen: `${window.screen.width}x${window.screen.height}`,
+        device: /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ? "Mobile" : "Desktop",
+        updatedAt: serverTimestamp(),
+        ...extra
+      };
+    }
 
     function getCategoryLabel(category) {
       const labels = {
@@ -1506,33 +1782,6 @@
       return `${battery}%`;
     }
 
-    function loadProducts() {
-      const saved = localStorage.getItem("ckProductsPhase1");
-      if (saved) return JSON.parse(saved);
-      localStorage.setItem("ckProductsPhase1", JSON.stringify(defaultProducts));
-      return defaultProducts;
-    }
-
-    function saveProducts(productList) {
-      localStorage.setItem("ckProductsPhase1", JSON.stringify(productList));
-    }
-
-    let products = loadProducts().map(product => ({
-      ...product,
-      acceptTrade: product.acceptTrade === "Não aceita troca" ? "Não aceita troca" : "Sob análise"
-    }));
-    saveProducts(products);
-
-    const productsGrid = document.getElementById("productsGrid");
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const adminOverlay = document.getElementById("adminOverlay");
-    const loginBox = document.getElementById("loginBox");
-    const adminPanel = document.getElementById("adminPanel");
-    const imageInput = document.getElementById("imageInput");
-    const imagePreview = document.getElementById("imagePreview");
-    const productForm = document.getElementById("productForm");
-    const supportCard = document.getElementById("supportCard");
-
     function buildWhatsAppLink(productName) {
       const text = `Olá, vim pelo site da CK iPHONES e tenho interesse em: ${productName}. Pode me passar mais detalhes?`;
       return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
@@ -1549,9 +1798,89 @@
       ].filter(Boolean);
     }
 
+    function getConversionRate(product) {
+      const views = product.views || 0;
+      const clicks = product.clicks || 0;
+      if (views === 0) return 0;
+      return (clicks / views) * 100;
+    }
+
+    function formatConversion(product) {
+      return `${getConversionRate(product).toFixed(1).replace(".", ",")}%`;
+    }
+
+    async function trackEvent(type, data = {}) {
+      try {
+        await addDoc(collection(db, "events"), {
+          type,
+          ...getVisitorData(data),
+          createdAt: serverTimestamp()
+        });
+      } catch (error) {
+        console.warn("Evento não salvo:", error);
+      }
+    }
+
+    async function trackVisitor() {
+      try {
+        const visitorRef = doc(db, "visitors", getSessionId());
+        await setDoc(visitorRef, {
+          ...getVisitorData(),
+          visits: increment(1),
+          lastSeenAt: serverTimestamp()
+        }, { merge: true });
+        await trackEvent("site_visit");
+      } catch (error) {
+        console.warn("Visitante não salvo:", error);
+      }
+    }
+
+    async function seedProductsIfEmpty() {
+      const snap = await getDocs(collection(db, "products"));
+      if (!snap.empty) return;
+      await Promise.all(defaultProducts.map(product => setDoc(doc(db, "products", product.id), {
+        ...product,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      })));
+    }
+
+    async function loadProductsFromFirestore() {
+      try {
+        await seedProductsIfEmpty();
+        const snap = await getDocs(collection(db, "products"));
+        products = snap.docs.map(item => ({ id: item.id, ...item.data() }))
+          .map(product => ({
+            ...product,
+            acceptTrade: product.acceptTrade === "Não aceita troca" ? "Não aceita troca" : "Sob análise",
+            views: product.views || 0,
+            clicks: product.clicks || 0,
+            sold: Boolean(product.sold)
+          }))
+          .sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
+        localStorage.setItem("ckProductsFirebaseBackup", JSON.stringify(products));
+        firebaseOnline = true;
+      } catch (error) {
+        firebaseOnline = false;
+        console.error("Erro Firebase, usando backup local:", error);
+        const saved = localStorage.getItem("ckProductsFirebaseBackup");
+        products = saved ? JSON.parse(saved) : defaultProducts;
+      }
+      renderProducts(currentFilter);
+      renderAdminList();
+    }
+
+    async function saveProductToFirestore(product) {
+      await setDoc(doc(db, "products", product.id), {
+        ...product,
+        updatedAt: serverTimestamp()
+      }, { merge: true });
+    }
+
     function renderProducts(filter = "todos") {
       currentFilter = filter;
       const filteredProducts = filter === "todos" ? products : products.filter(product => product.category === filter);
+      if (!productsGrid) return;
 
       if (filteredProducts.length === 0) {
         productsGrid.innerHTML = `
@@ -1572,25 +1901,88 @@
           <div class="product-category">${product.categoryLabel || getCategoryLabel(product.category)} • ${product.productType || "Semi-novo"}</div>
           <h3>${product.name}</h3>
           <div class="specs">
-            ${getProductSpecs(product).map(spec => `<span>${spec}</span>`).join("")}
+            ${getProductSpecs(product).slice(0, 5).map(spec => `<span>${spec}</span>`).join("")}
           </div>
           <div class="price">${product.price}</div>
           <div class="installment">Parcelamento em até 18x</div>
           ${product.sold
             ? `<button class="btn btn-secondary" disabled>Produto vendido</button>`
-            : `<a class="btn btn-primary" href="${buildWhatsAppLink(product.name)}" target="_blank" onclick="registerClick('${product.id}')">Tenho interesse</a>`
+            : `<button class="btn btn-primary" onclick="openProductDetail('${product.id}')">Ver detalhes</button>`
           }
         </article>
       `).join("");
     }
 
-    function registerClick(productId) {
-      products = products.map(product => product.id === productId
-        ? { ...product, clicks: (product.clicks || 0) + 1 }
-        : product
-      );
-      saveProducts(products);
+    async function openProductDetail(productId) {
+      const product = products.find(item => item.id === productId);
+      if (!product || !productDetailBody || !productDetailOverlay) return;
+
+      product.views = (product.views || 0) + 1;
       renderAdminList();
+      renderProducts(currentFilter);
+
+      try {
+        await updateDoc(doc(db, "products", productId), { views: increment(1), updatedAt: serverTimestamp() });
+        await trackEvent("product_view", { productId, productName: product.name });
+      } catch (error) {
+        console.warn("Visualização não sincronizada:", error);
+      }
+
+      const imageMarkup = product.image
+        ? `<img src="${product.image}" alt="${product.name}">`
+        : `<img class="logo-fallback" src="logo-principal.png" alt="CK iPHONES">`;
+
+      productDetailBody.innerHTML = `
+        <div class="detail-image">${imageMarkup}</div>
+        <div class="detail-info">
+          <div class="detail-tag">${product.categoryLabel || getCategoryLabel(product.category)} • ${product.productType || "Semi-novo"}</div>
+          <h2>${product.name}</h2>
+          <div class="detail-price">${product.price}</div>
+          <div class="detail-installment">Parcelamento em até 18x</div>
+
+          <div class="detail-spec-grid">
+            <div class="detail-spec"><span>Bateria</span><strong>${product.battery || "Consultar"}</strong></div>
+            <div class="detail-spec"><span>Cor</span><strong>${product.color || "Consultar"}</strong></div>
+            <div class="detail-spec"><span>Garantia</span><strong>${product.warranty || "Consultar"}</strong></div>
+            <div class="detail-spec"><span>Troca</span><strong>${product.acceptTrade || "Sob análise"}</strong></div>
+          </div>
+
+          <div class="detail-note">
+            <strong>Observações:</strong><br>
+            ${product.replacedParts || "Sem observações adicionais."}
+          </div>
+
+          <div class="detail-actions">
+            ${product.sold
+              ? `<button class="btn btn-secondary" disabled>Produto vendido</button>`
+              : `<a class="btn btn-primary" href="${buildWhatsAppLink(product.name)}" target="_blank" onclick="registerClick('${product.id}')">Tenho interesse no WhatsApp</a>`
+            }
+            <button class="btn btn-secondary" onclick="closeProductDetail()">Voltar ao catálogo</button>
+          </div>
+
+          <div class="detail-metrics">${product.views || 0} visualizações deste produto • ${product.clicks || 0} cliques no WhatsApp</div>
+        </div>
+      `;
+
+      productDetailOverlay.classList.add("open");
+    }
+
+    function closeProductDetail() {
+      if (productDetailOverlay) productDetailOverlay.classList.remove("open");
+    }
+
+    async function registerClick(productId) {
+      const product = products.find(item => item.id === productId);
+      if (!product) return;
+      product.clicks = (product.clicks || 0) + 1;
+      renderAdminList();
+
+      try {
+        await updateDoc(doc(db, "products", productId), { clicks: increment(1), updatedAt: serverTimestamp() });
+        await trackEvent("whatsapp_click", { productId, productName: product.name });
+      } catch (error) {
+        console.warn("Clique não sincronizado:", error);
+      }
     }
 
     filterButtons.forEach(button => {
@@ -1602,12 +1994,13 @@
     });
 
     function openAdmin() {
-      adminOverlay.classList.add("open");
+      if (adminOverlay) adminOverlay.classList.add("open");
       renderAdminList();
+      renderLeadsList();
     }
 
     function closeAdmin() {
-      adminOverlay.classList.remove("open");
+      if (adminOverlay) adminOverlay.classList.remove("open");
     }
 
     function loginAdmin() {
@@ -1616,62 +2009,119 @@
         loginBox.style.display = "none";
         adminPanel.classList.add("active");
         renderAdminList();
+        renderLeadsList();
       } else {
         alert("Senha incorreta.");
       }
     }
 
     function openInstagramPopup() {
-      document.getElementById("instagramPopup").classList.add("open");
+      const popup = document.getElementById("instagramPopup");
+      if (popup) popup.classList.add("open");
     }
 
     function closeInstagramPopup() {
-      document.getElementById("instagramPopup").classList.remove("open");
+      const popup = document.getElementById("instagramPopup");
+      if (popup) popup.classList.remove("open");
     }
 
     function toggleSupport() {
-      supportCard.classList.toggle("open");
+      if (supportCard) supportCard.classList.toggle("open");
     }
 
-    imageInput.addEventListener("change", event => {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = e => {
-        selectedImageBase64 = e.target.result;
-        imagePreview.innerHTML = `<img src="${selectedImageBase64}" alt="Prévia do produto">`;
-      };
-      reader.readAsDataURL(file);
-    });
+    function maybeShowLeadPopup() {
+      const alreadyHandled = localStorage.getItem("ckLeadPopupHandled");
+      if (alreadyHandled) return;
+      if (detectSource() !== "Instagram") return;
+      setTimeout(() => {
+        if (leadPopup) leadPopup.classList.add("open");
+      }, 1800);
+    }
 
-    productForm.addEventListener("submit", event => {
+    function closeLeadPopup() {
+      localStorage.setItem("ckLeadPopupHandled", "true");
+      if (leadPopup) leadPopup.classList.remove("open");
+    }
+
+    async function saveInstagramLead() {
+      const input = document.getElementById("instagramLeadInput");
+      const instagram = String(input?.value || "").trim();
+      if (!instagram) {
+        alert("Digite seu @ do Instagram para salvar.");
+        return;
+      }
+
+      const cleanInstagram = instagram.startsWith("@") ? instagram : `@${instagram}`;
+
+      try {
+        await addDoc(collection(db, "leads"), {
+          instagram: cleanInstagram,
+          status: "novo",
+          ...getVisitorData({ sourceDetail: "lead_popup" }),
+          createdAt: serverTimestamp()
+        });
+        await trackEvent("lead_instagram", { instagram: cleanInstagram });
+        localStorage.setItem("ckLeadPopupHandled", "true");
+        alert("Perfeito! Seu @ foi salvo para atendimento prioritário.");
+        if (leadPopup) leadPopup.classList.remove("open");
+        renderLeadsList();
+      } catch (error) {
+        alert("Não consegui salvar agora. Tente novamente em instantes.");
+        console.error(error);
+      }
+    }
+
+    if (imageUrlInput) {
+      imageUrlInput.addEventListener("input", () => {
+        const url = imageUrlInput.value.trim();
+        if (url.startsWith("http")) {
+          imagePreview.innerHTML = `<img src="${url}" alt="Prévia do produto">`;
+          selectedImageBase64 = url;
+        } else {
+          imagePreview.innerHTML = "Prévia da imagem";
+          selectedImageBase64 = "";
+        }
+      });
+    }
+
+    productForm.addEventListener("submit", async event => {
       event.preventDefault();
       const category = document.getElementById("category").value;
+      const productName = document.getElementById("name").value.trim();
 
       const newProduct = {
-        id: crypto.randomUUID(),
+        id: makeId(productName),
         category,
         categoryLabel: getCategoryLabel(category),
         productType: document.getElementById("productType").value,
-        name: document.getElementById("name").value.trim(),
+        name: productName,
         price: formatPriceBR(document.getElementById("price").value),
         battery: formatBattery(document.getElementById("battery").value),
         color: document.getElementById("color").value.trim() || "Consultar",
         warranty: document.getElementById("warranty").value.trim() || "Consultar",
         acceptTrade: document.getElementById("acceptTrade").value,
         replacedParts: document.getElementById("replacedParts").value.trim(),
-        image: selectedImageBase64,
-        sold: false,
+        image: selectedImageBase64 || document.getElementById("imageUrl")?.value.trim() || "",sold: false,
         clicks: 0,
+        views: 0,
         createdAt: new Date().toISOString()
       };
 
-      products.unshift(newProduct);
-      saveProducts(products);
-      resetForm();
-      renderProducts(currentFilter);
-      renderAdminList();
-      alert("Item cadastrado no catálogo.");
+      try {
+        await setDoc(doc(db, "products", newProduct.id), {
+          ...newProduct,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+        products.unshift(newProduct);
+        resetForm();
+        renderProducts(currentFilter);
+        renderAdminList();
+        alert("Item cadastrado online no catálogo.");
+      } catch (error) {
+        alert("Erro ao salvar no Firebase. Confira se o Firestore está em modo teste.");
+        console.error(error);
+      }
     });
 
     function resetForm() {
@@ -1680,52 +2130,95 @@
       imagePreview.innerHTML = "Prévia da imagem";
     }
 
-    function toggleSold(productId) {
-      products = products.map(product => product.id === productId
-        ? { ...product, sold: !product.sold }
-        : product
-      );
-      saveProducts(products);
+    async function toggleSold(productId) {
+      const product = products.find(item => item.id === productId);
+      if (!product) return;
+      product.sold = !product.sold;
       renderProducts(currentFilter);
       renderAdminList();
+      try {
+        await updateDoc(doc(db, "products", productId), { sold: product.sold, updatedAt: serverTimestamp() });
+      } catch (error) {
+        alert("Não consegui atualizar o status no Firebase.");
+        console.error(error);
+      }
     }
 
-    function deleteProduct(productId) {
+    async function deleteProduct(productId) {
       if (!confirm("Tem certeza que deseja excluir este item do catálogo?")) return;
-      products = products.filter(product => product.id !== productId);
-      saveProducts(products);
+      const product = products.find(item => item.id === productId);
+      products = products.filter(item => item.id !== productId);
       renderProducts(currentFilter);
       renderAdminList();
+      try {
+        await updateDoc(doc(db, "products", productId), {
+          sold: true,
+          deleted: true,
+          deletedAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+        await trackEvent("product_deleted", { productId, productName: product?.name || "Produto" });
+      } catch (error) {
+        console.warn("Produto removido da tela, mas não sincronizado:", error);
+      }
     }
 
-    function resetClicks(productId) {
-      products = products.map(product => product.id === productId
-        ? { ...product, clicks: 0 }
-        : product
-      );
-      saveProducts(products);
+    async function resetMetrics(productId) {
+      const product = products.find(item => item.id === productId);
+      if (!product) return;
+      product.clicks = 0;
+      product.views = 0;
+      renderProducts(currentFilter);
       renderAdminList();
+      try {
+        await updateDoc(doc(db, "products", productId), { clicks: 0, views: 0, updatedAt: serverTimestamp() });
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     function renderAdminList() {
       const adminList = document.getElementById("adminList");
       const totalProducts = document.getElementById("totalProducts");
       const totalSold = document.getElementById("totalSold");
+      const totalViews = document.getElementById("totalViews");
       const totalClicks = document.getElementById("totalClicks");
+      const mostViewedProduct = document.getElementById("mostViewedProduct");
+      const mostViewedMeta = document.getElementById("mostViewedMeta");
+      const bestConversionProduct = document.getElementById("bestConversionProduct");
+      const bestConversionMeta = document.getElementById("bestConversionMeta");
 
-      if (!adminList || !totalProducts || !totalSold || !totalClicks) return;
+      if (!adminList || !totalProducts || !totalSold || !totalViews || !totalClicks) return;
 
-      const clicks = products.reduce((sum, product) => sum + (product.clicks || 0), 0);
-      totalProducts.textContent = products.length;
-      totalSold.textContent = products.filter(product => product.sold).length;
+      const activeProducts = products.filter(product => !product.deleted);
+      const clicks = activeProducts.reduce((sum, product) => sum + (product.clicks || 0), 0);
+      const views = activeProducts.reduce((sum, product) => sum + (product.views || 0), 0);
+      totalProducts.textContent = activeProducts.length;
+      totalSold.textContent = activeProducts.filter(product => product.sold).length;
+      totalViews.textContent = views;
       totalClicks.textContent = clicks;
 
-      if (products.length === 0) {
+      const mostViewed = [...activeProducts].sort((a, b) => (b.views || 0) - (a.views || 0))[0];
+      const bestConversion = [...activeProducts]
+        .filter(product => (product.views || 0) > 0)
+        .sort((a, b) => getConversionRate(b) - getConversionRate(a))[0];
+
+      if (mostViewedProduct && mostViewedMeta) {
+        mostViewedProduct.textContent = mostViewed && (mostViewed.views || 0) > 0 ? mostViewed.name : "Sem dados ainda";
+        mostViewedMeta.textContent = mostViewed && (mostViewed.views || 0) > 0 ? `${mostViewed.views || 0} visualizações • ${mostViewed.clicks || 0} WhatsApp` : "0 visualizações";
+      }
+
+      if (bestConversionProduct && bestConversionMeta) {
+        bestConversionProduct.textContent = bestConversion ? bestConversion.name : "Sem dados ainda";
+        bestConversionMeta.textContent = bestConversion ? `${formatConversion(bestConversion)} de conversão • ${bestConversion.clicks || 0}/${bestConversion.views || 0}` : "0% de conversão";
+      }
+
+      if (activeProducts.length === 0) {
         adminList.innerHTML = `<p style="color:#aaa;">Nenhum produto cadastrado ainda.</p>`;
         return;
       }
 
-      const sortedProducts = [...products].sort((a, b) => (b.clicks || 0) - (a.clicks || 0));
+      const sortedProducts = [...activeProducts].sort((a, b) => (b.views || 0) - (a.views || 0));
 
       adminList.innerHTML = sortedProducts.map(product => `
         <div class="admin-item">
@@ -1736,14 +2229,16 @@
             <h4>${product.name}</h4>
             <div class="admin-meta">
               ${product.price} • ${product.categoryLabel || getCategoryLabel(product.category)} • ${product.productType || "Semi-novo"} • ${product.sold ? "Vendido" : "Disponível"}<br>
-              Cliques: <strong>${product.clicks || 0}</strong><br>
+              Visualizações: <strong>${product.views || 0}</strong> • WhatsApp: <strong>${product.clicks || 0}</strong><br>
+              Conversão: <span class="conversion-badge">${formatConversion(product)}</span><br>
               Bateria: ${product.battery || "Consultar"} • Troca: ${product.acceptTrade || "Sob análise"}
             </div>
             <div class="small-actions">
               <button class="btn ${product.sold ? "btn-success" : "btn-secondary"}" onclick="toggleSold('${product.id}')">
                 ${product.sold ? "Voltar disponível" : "Marcar vendido"}
               </button>
-              <button class="btn btn-secondary" onclick="resetClicks('${product.id}')">Zerar cliques</button>
+              <button class="btn btn-secondary" onclick="openProductDetail('${product.id}')">Ver página</button>
+              <button class="btn btn-secondary" onclick="resetMetrics('${product.id}')">Zerar métricas</button>
               <button class="btn btn-danger" onclick="deleteProduct('${product.id}')">Excluir</button>
             </div>
           </div>
@@ -1751,35 +2246,102 @@
       `).join("");
     }
 
-    function revealOnScroll() {
-      const reveals = document.querySelectorAll(".reveal");
-      reveals.forEach(element => {
-        const top = element.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-        if (top < windowHeight - 70) {
-          element.classList.add("visible");
+    async function renderLeadsList() {
+      const leadsList = document.getElementById("leadsList");
+      if (!leadsList) return;
+      leadsList.innerHTML = `<p style="color:#aaa;">Carregando leads...</p>`;
+
+      try {
+        const [leadsSnap, eventsSnap] = await Promise.all([
+          getDocs(collection(db, "leads")),
+          getDocs(collection(db, "events"))
+        ]);
+
+        const leads = leadsSnap.docs.map(item => ({ id: item.id, ...item.data(), kind: "lead" }));
+        const events = eventsSnap.docs.map(item => ({ id: item.id, ...item.data(), kind: "event" }));
+        const mixed = [...leads, ...events]
+          .sort((a, b) => {
+            const aTime = a.createdAt?.seconds || 0;
+            const bTime = b.createdAt?.seconds || 0;
+            return bTime - aTime;
+          })
+          .slice(0, 30);
+
+        if (mixed.length === 0) {
+          leadsList.innerHTML = `<p style="color:#aaa;">Nenhum lead ou evento registrado ainda.</p>`;
+          return;
         }
+
+        leadsList.innerHTML = mixed.map(item => {
+          const isLead = item.kind === "lead";
+          const title = isLead ? (item.instagram || "Lead sem @") : `Evento: ${item.type || "acesso"}`;
+          const meta = isLead
+            ? `Origem: ${item.source || "Não identificada"} • Dispositivo: ${item.device || "-"}`
+            : `Produto: ${item.productName || "-"} • Origem: ${item.source || "-"}`;
+          return `
+            <div class="admin-item">
+              <div class="admin-thumb" style="display:grid;place-items:center;font-size:1.5rem;">${isLead ? `<svg class="instagram-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>` : "📊"}</div>
+              <div>
+                <h4>${title}</h4>
+                <div class="admin-meta">
+                  ${meta}<br>
+                  Página: ${item.path || "/"}<br>
+                  Visitante: ${item.visitorId || "-"}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join("");
+      } catch (error) {
+        leadsList.innerHTML = `<p style="color:#ffb3b3;">Erro ao carregar leads. Verifique as regras do Firestore.</p>`;
+        console.error(error);
+      }
+    }
+
+    if (adminOverlay) {
+      adminOverlay.addEventListener("click", event => {
+        if (event.target === adminOverlay) closeAdmin();
       });
     }
 
-    adminOverlay.addEventListener("click", event => {
-      if (event.target === adminOverlay) closeAdmin();
-    });
+    if (productDetailOverlay) {
+      productDetailOverlay.addEventListener("click", event => {
+        if (event.target === productDetailOverlay) closeProductDetail();
+      });
+    }
 
-    document.getElementById("instagramPopup").addEventListener("click", event => {
-      if (event.target.id === "instagramPopup") closeInstagramPopup();
-    });
+    const instagramPopup = document.getElementById("instagramPopup");
+    if (instagramPopup) {
+      instagramPopup.addEventListener("click", event => {
+        if (event.target.id === "instagramPopup") closeInstagramPopup();
+      });
+    }
 
-    window.addEventListener("scroll", revealOnScroll);
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        document.getElementById("loader").classList.add("hidden");
-      }, 650);
-      revealOnScroll();
-    });
+    if (leadPopup) {
+      leadPopup.addEventListener("click", event => {
+        if (event.target.id === "leadPopup") closeLeadPopup();
+      });
+    }
+
+    window.openProductDetail = openProductDetail;
+    window.closeProductDetail = closeProductDetail;
+    window.registerClick = registerClick;
+    window.openAdmin = openAdmin;
+    window.closeAdmin = closeAdmin;
+    window.loginAdmin = loginAdmin;
+    window.openInstagramPopup = openInstagramPopup;
+    window.closeInstagramPopup = closeInstagramPopup;
+    window.toggleSupport = toggleSupport;
+    window.toggleSold = toggleSold;
+    window.deleteProduct = deleteProduct;
+    window.resetMetrics = resetMetrics;
+    window.saveInstagramLead = saveInstagramLead;
+    window.closeLeadPopup = closeLeadPopup;
 
     renderProducts();
-    revealOnScroll();
+    loadProductsFromFirestore();
+    trackVisitor();
+    maybeShowLeadPopup();
   </script>
 </body>
 </html>
