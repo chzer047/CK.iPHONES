@@ -1718,12 +1718,23 @@
       return id;
     }
 
+    function isInstagramEntry() {
+      const params = new URLSearchParams(window.location.search);
+      const utm = params.get("utm_source") || "";
+      const source = params.get("source") || "";
+      const ref = params.get("ref") || "";
+      const referrer = document.referrer || "";
+      const userAgent = navigator.userAgent || "";
+      const text = `${utm} ${source} ${ref} ${referrer} ${userAgent}`.toLowerCase();
+      return text.includes("instagram") || text.includes("ig_") || text.includes("instagram.com");
+    }
+
     function detectSource() {
       const params = new URLSearchParams(window.location.search);
       const utm = params.get("utm_source") || params.get("source") || params.get("ref");
       const referrer = document.referrer || "";
-      const text = `${utm || ""} ${referrer}`.toLowerCase();
-      if (text.includes("instagram")) return "Instagram";
+      const text = `${utm || ""} ${referrer} ${navigator.userAgent || ""}`.toLowerCase();
+      if (isInstagramEntry()) return "Instagram";
       if (text.includes("whatsapp")) return "WhatsApp";
       if (text.includes("facebook") || text.includes("meta")) return "Facebook/Meta";
       if (referrer) return "Referência externa";
@@ -1879,7 +1890,10 @@
 
     function renderProducts(filter = "todos") {
       currentFilter = filter;
-      const filteredProducts = filter === "todos" ? products : products.filter(product => product.category === filter);
+      const visibleProducts = products.filter(product => !product.deleted);
+      const filteredProducts = filter === "todos"
+        ? visibleProducts
+        : visibleProducts.filter(product => product.category === filter);
       if (!productsGrid) return;
 
       if (filteredProducts.length === 0) {
@@ -2030,12 +2044,16 @@
     }
 
     function maybeShowLeadPopup() {
+      const params = new URLSearchParams(window.location.search);
+      const forcedInstagramLink = isInstagramEntry();
       const alreadyHandled = localStorage.getItem("ckLeadPopupHandled");
-      if (alreadyHandled) return;
+
+      if (!forcedInstagramLink && alreadyHandled) return;
       if (detectSource() !== "Instagram") return;
+
       setTimeout(() => {
         if (leadPopup) leadPopup.classList.add("open");
-      }, 1800);
+      }, 1200);
     }
 
     function closeLeadPopup() {
@@ -2153,6 +2171,7 @@
       try {
         await updateDoc(doc(db, "products", productId), {
           sold: true,
+          deleted: true,
           deleted: true,
           deletedAt: serverTimestamp(),
           updatedAt: serverTimestamp()
