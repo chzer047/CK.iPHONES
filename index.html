@@ -1545,8 +1545,9 @@
                 </div>
 
                 <div class="form-group full">
-                  <label>Imagem do produto</label>
-                  <input type="file" id="imageInput" accept="image/*" />
+                  <label>Link da imagem do produto</label>
+                  <input id="imageUrl" placeholder="Cole aqui o Direct Link do ImgBB. Ex: https://i.ibb.co/arquivo.jpg" />
+                  <p style="color:#aaa;font-size:.82rem;line-height:1.4;">Use o link direto da imagem, normalmente começando com https://i.ibb.co/</p>
                   <div class="preview-img" id="imagePreview">Prévia da imagem</div>
                 </div>
               </div>
@@ -1693,7 +1694,7 @@
     const productDetailBody = document.getElementById("productDetailBody");
     const loginBox = document.getElementById("loginBox");
     const adminPanel = document.getElementById("adminPanel");
-    const imageInput = document.getElementById("imageInput");
+    const imageUrlInput = document.getElementById("imageUrl");
     const imagePreview = document.getElementById("imagePreview");
     const productForm = document.getElementById("productForm");
     const supportCard = document.getElementById("supportCard");
@@ -2070,23 +2071,18 @@
       }
     }
 
-    imageInput.addEventListener("change", event => {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      if (file.size > 500000) {
-        alert("Essa imagem está pesada para salvar no Firestore. Use uma imagem menor que 500 KB por enquanto.");
-        imageInput.value = "";
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = e => {
-        selectedImageBase64 = e.target.result;
-        imagePreview.innerHTML = `<img src="${selectedImageBase64}" alt="Prévia do produto">`;
-      };
-      reader.readAsDataURL(file);
-    });
+    if (imageUrlInput) {
+      imageUrlInput.addEventListener("input", () => {
+        const url = imageUrlInput.value.trim();
+        if (url.startsWith("http")) {
+          imagePreview.innerHTML = `<img src="${url}" alt="Prévia do produto">`;
+          selectedImageBase64 = url;
+        } else {
+          imagePreview.innerHTML = "Prévia da imagem";
+          selectedImageBase64 = "";
+        }
+      });
+    }
 
     productForm.addEventListener("submit", async event => {
       event.preventDefault();
@@ -2105,7 +2101,7 @@
         warranty: document.getElementById("warranty").value.trim() || "Consultar",
         acceptTrade: document.getElementById("acceptTrade").value,
         replacedParts: document.getElementById("replacedParts").value.trim(),
-        image: selectedImageBase64,
+        image: selectedImageBase64 || document.getElementById("imageUrl")?.value.trim() || "
         sold: false,
         clicks: 0,
         views: 0,
